@@ -278,7 +278,7 @@ function cardHTML(p,i,isArc){
   var extBadge=p.extensions&&p.extensions.length?'<span class="bg" style="background:#e8f0fe;color:#1a73e8">'+p.extensions.length+' הארכות</span>':'';
   var arcBadge=isArc?'<span class="bg b-ar">ארכיון</span>':'';
   var pfx=isArc?'a':'p';
-  var cid=pfx+i;
+  var cid=pfx+String(i);
   var extsHTML='';
   if(p.extensions&&p.extensions.length){
     extsHTML='<div style="margin-bottom:10px"><div style="font-size:11px;font-weight:700;color:#888;margin-bottom:6px">הארכות שכירות</div>';
@@ -294,30 +294,31 @@ function cardHTML(p,i,isArc){
     });
     extsHTML+='</div>';
   }
-  var html='<div class="pcard" id="card-'+cid+'" onclick="toggleCard(\''+cid+'\')">';
-  html+='<div class="ph"><div>';
-  html+='<div class="pn">&#x1F3E0; דירה '+p.unit+' &mdash; '+p.own+'</div>';
-  html+='<div class="pa">'+(p.tenant||'--')+' | '+(p.rooms||'')+' חד | קומה '+(p.floor||'--')+'</div>';
-  html+='</div><div style="display:flex;align-items:center;gap:8px">';
-  html+='<div class="bgs">'+(isArc?arcBadge:statusBadge(p))+extBadge+'<span style="font-size:14px;font-weight:700;color:#1a73e8">'+fmtM(p.rent)+'</span></div>';
-  html+='<span class="chv">&#x25BE;</span></div></div>';
-  html+='<div class="pd" id="det-'+cid+'">';
-  html+='<div class="dg">';
-  html+='<div class="di"><div class="dl">תחילת שכירות</div><div class="dv">'+fmt(p.start)+'</div></div>';
-  html+='<div class="di"><div class="dl">סיום שכירות</div><div class="dv">'+fmt(p.end)+'</div></div>';
-  html+='<div class="di"><div class="dl">'+(p.extensions&&p.extensions.length?'סיום אחרון':'ימים לסיום')+'</div><div class="dv">'+(p.extensions&&p.extensions.length?fmt(end):dStr)+'</div></div>';
-  if(p.arnona)html+='<div class="di"><div class="dl">ארנונה</div><div class="dv">'+fmtM(p.arnona)+'</div></div>';
-  if(p.vaad)html+='<div class="di"><div class="dl">ועד בית</div><div class="dv">'+fmtM(p.vaad)+'</div></div>';
-  if(p.guarantee)html+='<div class="di"><div class="dl">ערבויות</div><div class="dv">'+p.guarantee+'</div></div>';
-  if(p.notes)html+='<div class="di" style="grid-column:1/-1"><div class="dl">הערות</div><div class="dv">'+p.notes+'</div></div>';
-  html+='</div>'+extsHTML;
-  html+='<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">';
-  html+='<button class="abtn" onclick="event.stopPropagation();openEdit('+i+','+isArc+')">&#x270E; עריכה</button>';
-  if(!isArc){html+='<button class="abtn arc" onclick="event.stopPropagation();moveToArchive('+i+')">&#x1F4E6; ארכיון</button>';}
-  else{html+='<button class="abtn" onclick="event.stopPropagation();restoreFromArchive('+i+')">&#x21BA; שחזר</button>';}
-  html+='<button class="abtn del" onclick="event.stopPropagation();deleteProp('+i+','+isArc+')">&#x1F5D1; מחק</button>';
-  html+='</div></div></div>';
-  return html;
+  var parts=[];
+  parts.push('<div class="pcard" id="card-'+cid+'" onclick="toggleCard(&#39;'+cid+'&#39;)">');
+  parts.push('<div class="ph"><div>');
+  parts.push('<div class="pn">&#x1F3E0; דירה '+p.unit+' &mdash; '+p.own+'</div>');
+  parts.push('<div class="pa">'+(p.tenant||'--')+' | '+(p.rooms||'')+' חד | קומה '+(p.floor||'--')+'</div>');
+  parts.push('</div><div style="display:flex;align-items:center;gap:8px">');
+  parts.push('<div class="bgs">'+(isArc?arcBadge:statusBadge(p))+extBadge+'<span style="font-size:14px;font-weight:700;color:#1a73e8">'+fmtM(p.rent)+'</span></div>');
+  parts.push('<span class="chv">&#x25BE;</span></div></div>');
+  parts.push('<div class="pd" id="det-'+cid+'">');
+  parts.push('<div class="dg">');
+  parts.push('<div class="di"><div class="dl">תחילת שכירות</div><div class="dv">'+fmt(p.start)+'</div></div>');
+  parts.push('<div class="di"><div class="dl">סיום שכירות</div><div class="dv">'+fmt(p.end)+'</div></div>');
+  parts.push('<div class="di"><div class="dl">'+(p.extensions&&p.extensions.length?'סיום אחרון':'ימים לסיום')+'</div><div class="dv">'+(p.extensions&&p.extensions.length?fmt(end):dStr)+'</div></div>');
+  if(p.arnona)parts.push('<div class="di"><div class="dl">ארנונה</div><div class="dv">'+fmtM(p.arnona)+'</div></div>');
+  if(p.vaad)parts.push('<div class="di"><div class="dl">ועד בית</div><div class="dv">'+fmtM(p.vaad)+'</div></div>');
+  if(p.guarantee)parts.push('<div class="di"><div class="dl">ערבויות</div><div class="dv">'+p.guarantee+'</div></div>');
+  if(p.notes)parts.push('<div class="di" style="grid-column:1/-1"><div class="dl">הערות</div><div class="dv">'+p.notes+'</div></div>');
+  parts.push('</div>'+extsHTML);
+  parts.push('<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">');
+  parts.push('<button class="abtn" onclick="event.stopPropagation();openEdit('+i+','+isArc+')">&#x270E; עריכה</button>');
+  if(!isArc){parts.push('<button class="abtn arc" onclick="event.stopPropagation();moveToArchive('+i+')">&#x1F4E6; ארכיון</button>');}
+  else{parts.push('<button class="abtn" onclick="event.stopPropagation();restoreFromArchive('+i+')">&#x21BA; שחזר</button>');}
+  parts.push('<button class="abtn del" onclick="event.stopPropagation();deleteProp('+i+','+isArc+')">&#x1F5D1; מחק</button>');
+  parts.push('</div></div></div>');
+  return parts.join('');
 }
 
 function renderActive(){
