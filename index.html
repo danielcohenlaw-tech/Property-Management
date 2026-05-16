@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ניהול נכסים</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.6.0/dist/tabler-icons.min.css">
 <style>
-
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
 .app{max-width:900px;margin:0 auto;padding:16px}
@@ -63,7 +61,7 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
 .di{display:flex;flex-direction:column;gap:2px}
 .dl{font-size:11px;color:#888}
 .dv{font-size:13px;color:#222;font-weight:600}
-.chv{font-size:16px;color:#aaa;transition:transform 0.2s;flex-shrink:0}
+.chv{font-size:16px;color:#aaa;transition:transform 0.2s;flex-shrink:0;display:inline-block}
 .pcard.open .chv{transform:rotate(180deg)}
 .frow{display:flex;gap:8px;margin-bottom:12px}
 .frow input,.frow select{font-size:13px;border:1px solid #ddd;border-radius:8px;padding:8px 12px;background:#fff;color:#222}
@@ -71,7 +69,7 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
 .abtn:hover{border-color:#888;color:#222}
 .abtn.del:hover{border-color:#e74c3c;color:#e74c3c}
 .abtn.arc:hover{border-color:#e67e22;color:#e67e22}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:10px 20px;border-radius:10px;font-size:13px;opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:100}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:10px 20px;border-radius:10px;font-size:13px;opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:200}
 .toast.show{opacity:1}
 .alert-b{background:#fff3cd;border:1px solid #ffc107;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:#856404}
 .modal-bg{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:50;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
@@ -92,6 +90,17 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
 .bar-track{flex:1;background:#f0f0f0;border-radius:4px;height:16px;overflow:hidden}
 .bar-fill{height:100%;border-radius:4px;background:#1a73e8}
 .bar-val{font-size:12px;font-weight:600;color:#222;width:80px;flex-shrink:0}
+.login-screen{position:fixed;top:0;left:0;right:0;bottom:0;background:#f5f5f5;z-index:999;display:flex;align-items:center;justify-content:center}
+.login-box{background:#fff;border-radius:16px;padding:32px 28px;width:90%;max-width:340px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,0.12);border:1px solid #e0e0e0}
+.login-box h2{font-size:22px;font-weight:700;margin-bottom:6px;color:#222}
+.login-sub{font-size:13px;color:#888;margin-bottom:24px}
+.pwd-wrap{position:relative;margin-bottom:14px}
+.pwd-wrap input{width:100%;border:1px solid #ddd;border-radius:8px;padding:11px 14px 11px 44px;font-size:16px;font-family:Arial,sans-serif;color:#222;text-align:center}
+.pwd-wrap input:focus{outline:none;border-color:#1a73e8}
+.pwd-eye{position:absolute;left:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:20px;padding:0;line-height:1;color:#aaa}
+.login-btn{width:100%;background:#1a73e8;color:#fff;border:none;border-radius:8px;padding:12px;font-size:15px;font-weight:600;cursor:pointer;margin-bottom:8px}
+.login-btn:hover{background:#1557b0}
+.login-err{color:#e74c3c;font-size:13px;display:none;margin-top:4px}
 @media(max-width:600px){
   .stats-row{grid-template-columns:repeat(2,1fr)}
   .fg{grid-template-columns:1fr}
@@ -103,39 +112,24 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
   .stat-grid{grid-template-columns:repeat(2,1fr)}
   .ext-grid{grid-template-columns:1fr 1fr}
 }
-
-
-.login-screen{display:none;align-items:center;justify-content:center;min-height:100vh;background:#f5f5f5;position:fixed;top:0;left:0;right:0;bottom:0;z-index:999}
-.login-screen.show{display:flex}
-.login-box{background:#fff;border-radius:16px;padding:32px 28px;width:90%;max-width:340px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,0.12);border:1px solid #e0e0e0}
-.login-box h2{font-size:22px;font-weight:700;margin-bottom:6px;color:#222}
-.login-box .sub{font-size:13px;color:#888;margin-bottom:24px}
-.pwd-wrap{position:relative;margin-bottom:14px}
-.pwd-wrap input{width:100%;border:1px solid #ddd;border-radius:8px;padding:11px 44px 11px 14px;font-size:16px;text-align:center;font-family:Arial,sans-serif;color:#222}
-.pwd-wrap input:focus{outline:none;border-color:#1a73e8}
-.pwd-eye{position:absolute;left:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;padding:0;line-height:1}
-.login-btn{width:100%;background:#1a73e8;color:#fff;border:none;border-radius:8px;padding:12px;font-size:15px;font-weight:600;cursor:pointer;margin-bottom:8px}
-.login-btn:hover{background:#1557b0}
-.login-err{color:#e74c3c;font-size:13px;display:none}
 </style>
 </head>
 <body>
 
-<div class="login-screen show" id="login-screen">
+<div class="login-screen" id="login-screen">
   <div class="login-box">
-    <h2>🏢 ניהול נכסים</h2>
-    <div class="sub">הזן סיסמה להמשך</div>
+    <h2>&#x1F3E2; ניהול נכסים</h2>
+    <div class="login-sub">הזן סיסמה להמשך</div>
     <div class="pwd-wrap">
       <input type="password" id="pwd-input" placeholder="סיסמה" autocomplete="off">
-      <button class="pwd-eye" id="pwd-eye" onclick="togglePwd()">👁</button>
+      <button class="pwd-eye" onclick="togglePwd()">&#x1F441;</button>
     </div>
-    <button class="login-btn" onclick="checkPwd()">כניסה ←</button>
-    <div class="login-err" id="pwd-err">❌ סיסמה שגויה, נסה שוב</div>
+    <button class="login-btn" onclick="checkPwd()">כניסה</button>
+    <div class="login-err" id="pwd-err">סיסמה שגויה, נסה שוב</div>
   </div>
 </div>
 
 <div id="main-app" style="display:none">
-
 <div class="app">
 <div class="hdr">
   <div><h1>&#x1F3E2; ניהול נכסים</h1><div class="hdr-sub">מערכת לניהול שכירויות</div></div>
@@ -193,7 +187,7 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
     </div>
   </div>
 </div>
-
+</div>
 </div>
 
 <div class="modal-bg" id="edit-modal">
@@ -226,25 +220,21 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
 
 <div class="toast" id="toast"></div>
 
-
 <script>
-
 var props=[],archive=[],editIdx=-1,editIsArchive=false;
-try{var d=JSON.parse(localStorage.getItem('pm_v6')||'{}');props=d.props||[];archive=d.archive||[];}catch(e){}
-
 var D=[
-  {unit:'1',own:'אילנה',rooms:'דירת גן',floor:'ק',tenant:'אדם טל',rent:17000,start:'',end:'2025-07-31',arnona:'',vaad:'',guarantee:'בנקאית 27/10/25',notes:'החל מחודש אוגוסט 24 שכד 17, עד אז 16.5. מימש אופציה באותו סכום 17K עד ל 31.7.26',extensions:[]},
+  {unit:'1',own:'אילנה',rooms:'דירת גן',floor:'ק',tenant:'אדם טל',rent:17000,start:'',end:'2025-07-31',arnona:'',vaad:'',guarantee:'בנקאית 27/10/25',notes:'החל מחודש אוגוסט 24 שכד 17, עד אז 16.5. מימש אופציה 17K עד 31.7.26',extensions:[]},
   {unit:'2',own:'אילנה',rooms:'3',floor:'1',tenant:'tlv',rent:13500,start:'',end:'2025-07-31',arnona:'',vaad:'',guarantee:'בנקאית 31/10/25',notes:'מנכים מס במקור.',extensions:[]},
-  {unit:'3',own:'דניאל',rooms:'2',floor:'1',tenant:'מידטרם דן בע"מ',rent:9500,start:'2024-12-15',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'החל מחודש אוגוסט 25 שכ"ד עולה ל 10,000 + מדד. מנכים מס במקור.',extensions:[]},
-  {unit:'4',own:'ענת',rooms:'2',floor:'1',tenant:'אפרת זינגר',rent:9500,start:'2024-11-01',end:'2025-10-31',arnona:'',vaad:'',guarantee:"צ'ק בנקאי",notes:'באופציה שכ"ד צמוד מדד עד %2.5',extensions:[{start:'2025-11-01',end:'2026-07-31',rent:9500,notes:'אופציה'}]},
+  {unit:'3',own:'דניאל',rooms:'2',floor:'1',tenant:'מידטרם דן',rent:9500,start:'2024-12-15',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'החל מאוגוסט 25 שכד עולה ל 10,000 + מדד.',extensions:[]},
+  {unit:'4',own:'ענת',rooms:'2',floor:'1',tenant:'אפרת זינגר',rent:9500,start:'2024-11-01',end:'2025-10-31',arnona:'',vaad:'',guarantee:'צק בנקאי',notes:'באופציה צמוד מדד עד 2.5%',extensions:[{start:'2025-11-01',end:'2026-07-31',rent:9500,notes:'אופציה'}]},
   {unit:'5',own:'אילנה',rooms:'3',floor:'2',tenant:'tlv',rent:13500,start:'',end:'2026-07-31',arnona:'',vaad:'',guarantee:'ערבות 20 אלף בפקמ',notes:'מנכים מס במקור',extensions:[]},
   {unit:'6',own:'ענת',rooms:'2',floor:'2',tenant:'tlv',rent:10500,start:'',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'מנכים מס במקור',extensions:[]},
   {unit:'7',own:'דניאל',rooms:'2',floor:'2',tenant:'tlv',rent:10500,start:'',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'מנכים מס במקור',extensions:[]},
-  {unit:'8',own:'אילנה',rooms:'3',floor:'3',tenant:"גלינה ובנג'מין",rent:13000,start:'2025-05-21',end:'2026-07-31',arnona:'',vaad:'',guarantee:'מזומן 26000 שהופקד לבינ"ל',notes:'',extensions:[{start:'2026-08-01',end:'2027-07-31',rent:13000,notes:''}]},
-  {unit:'9',own:'אילנה',rooms:'2',floor:'3',tenant:'מידטרם דן בע"מ',rent:9500,start:'2025-02-01',end:'2026-08-31',arnona:'',vaad:'',guarantee:'',notes:'החל מחודש אוגוסט 25 שכ"ד עולה ל 10,000 + מדד. מנכים מס במקור.',extensions:[]},
-  {unit:'10',own:'ענת',rooms:'2',floor:'3',tenant:'מידטרם דן בע"מ',rent:9500,start:'2024-12-15',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'החל מחודש אוגוסט 25 שכ"ד עולה ל 10,000 + מדד. מנכים מס במקור.',extensions:[]},
-  {unit:'12',own:'אילנה',rooms:'2',floor:'4',tenant:'דויד באבא',rent:8700,start:'2025-05-23',end:'2026-06-30',arnona:'',vaad:'',guarantee:'הופקד לבינל 26100 שכירות במזומן',notes:'באופציה צמוד למדד',extensions:[{start:'2026-07-01',end:'2027-06-30',rent:8700,notes:'אופציה צמוד מדד'}]},
-  {unit:'13',own:'דניאל',rooms:'2',floor:'4',tenant:'אילן דסנר',rent:9566,start:'2025-08-01',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'אופציה עליה 5% או מדד +2% לפי הגבוה',extensions:[{start:'2026-08-01',end:'2027-07-31',rent:10044,notes:'5% או מדד+2%'}]},
+  {unit:'8',own:'אילנה',rooms:'3',floor:'3',tenant:'גלינה ובנגמין',rent:13000,start:'2025-05-21',end:'2026-07-31',arnona:'',vaad:'',guarantee:'מזומן 26000 לבינל',notes:'',extensions:[{start:'2026-08-01',end:'2027-07-31',rent:13000,notes:''}]},
+  {unit:'9',own:'אילנה',rooms:'2',floor:'3',tenant:'מידטרם דן',rent:9500,start:'2025-02-01',end:'2026-08-31',arnona:'',vaad:'',guarantee:'',notes:'החל מאוגוסט 25 שכד עולה ל 10,000 + מדד.',extensions:[]},
+  {unit:'10',own:'ענת',rooms:'2',floor:'3',tenant:'מידטרם דן',rent:9500,start:'2024-12-15',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'החל מאוגוסט 25 שכד עולה ל 10,000 + מדד.',extensions:[]},
+  {unit:'12',own:'אילנה',rooms:'2',floor:'4',tenant:'דויד באבא',rent:8700,start:'2025-05-23',end:'2026-06-30',arnona:'',vaad:'',guarantee:'הופקד 26100 לבינל',notes:'באופציה צמוד למדד',extensions:[{start:'2026-07-01',end:'2027-06-30',rent:8700,notes:'אופציה צמוד מדד'}]},
+  {unit:'13',own:'דניאל',rooms:'2',floor:'4',tenant:'אילן דסנר',rent:9566,start:'2025-08-01',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'אופציה 5% או מדד+2% לפי הגבוה',extensions:[{start:'2026-08-01',end:'2027-07-31',rent:10044,notes:'5% או מדד+2%'}]},
   {unit:'חנות רגיל',own:'אילנה',rooms:'חנות',floor:'ק',tenant:'tlv',rent:0,start:'',end:'2025-07-31',arnona:'',vaad:'',guarantee:'',notes:'מנכים מס במקור',extensions:[]},
   {unit:'חנות מוגן',own:'אילנה',rooms:'חנות',floor:'ק',tenant:'נחמן',rent:0,start:'',end:'',arnona:'',vaad:'',guarantee:'',notes:'',extensions:[]}
 ];
@@ -253,11 +243,10 @@ var DA=[
   {unit:'12',own:'אילנה',rooms:'2',floor:'4',tenant:'יאיר חיון',rent:8500,start:'2024-10-01',end:'2025-07-31',arnona:'',vaad:'',guarantee:'',notes:'פינה במאי 25.',extensions:[]},
   {unit:'13',own:'דניאל',rooms:'2',floor:'4',tenant:'אמילי ברנס',rent:9000,start:'2024-09-01',end:'2025-07-31',arnona:'',vaad:'',guarantee:'',notes:'תפנה 31/07/2025',extensions:[]}
 ];
-if(!props.length&&!archive.length){props=D;archive=DA;saveAll();}
 
-function saveAll(){try{localStorage.setItem('pm_v6',JSON.stringify({props:props,archive:archive}));}catch(e){}}
-function fmt(d){if(!d)return '—';var dt=new Date(d);return dt.toLocaleDateString('he-IL');}
-function fmtM(n){return n?'&#x20AA;'+parseInt(n).toLocaleString():'—';}
+function saveAll(){window._fbSave && window._fbSave();}
+function fmt(d){if(!d)return '--';return new Date(d).toLocaleDateString('he-IL');}
+function fmtM(n){return n?'\u20AA'+parseInt(n).toLocaleString():'--';}
 function dl(d){if(!d)return null;return Math.ceil((new Date(d)-new Date())/86400000);}
 function getLastEnd(p){if(p.extensions&&p.extensions.length){var l=p.extensions[p.extensions.length-1];if(l.end)return l.end;}return p.end;}
 
@@ -278,12 +267,18 @@ function statusBadge(p){
   return '<span class="bg b-ok">פעיל</span>';
 }
 
+function toggleCard(id){
+  document.getElementById('card-'+id).classList.toggle('open');
+  document.getElementById('det-'+id).classList.toggle('open');
+}
+
 function cardHTML(p,i,isArc){
   var end=getLastEnd(p);var d=dl(end);
   var dStr=d!==null&&d>=0?d+' ימים':'הסתיים';
   var extBadge=p.extensions&&p.extensions.length?'<span class="bg" style="background:#e8f0fe;color:#1a73e8">'+p.extensions.length+' הארכות</span>':'';
   var arcBadge=isArc?'<span class="bg b-ar">ארכיון</span>':'';
-  var prefix=isArc?'a':'p';
+  var pfx=isArc?'a':'p';
+  var cid=pfx+i;
   var extsHTML='';
   if(p.extensions&&p.extensions.length){
     extsHTML='<div style="margin-bottom:10px"><div style="font-size:11px;font-weight:700;color:#888;margin-bottom:6px">הארכות שכירות</div>';
@@ -293,40 +288,36 @@ function cardHTML(p,i,isArc){
       extsHTML+='<div class="dg" style="grid-template-columns:repeat(3,1fr)">';
       if(e.start)extsHTML+='<div class="di"><div class="dl">תחילה</div><div class="dv">'+fmt(e.start)+'</div></div>';
       extsHTML+='<div class="di"><div class="dl">סיום</div><div class="dv">'+fmt(e.end)+'</div></div>';
-      if(e.rent)extsHTML+='<div class="di"><div class="dl">שכ"ד</div><div class="dv">'+fmtM(e.rent)+'</div></div>';
+      if(e.rent)extsHTML+='<div class="di"><div class="dl">שכד</div><div class="dv">'+fmtM(e.rent)+'</div></div>';
       if(e.notes)extsHTML+='<div class="di" style="grid-column:1/-1"><div class="dl">הערות</div><div class="dv">'+e.notes+'</div></div>';
       extsHTML+='</div></div>';
     });
     extsHTML+='</div>';
   }
-  return '<div class="pcard" id="card-'+prefix+i+'" onclick="toggleCard(''+prefix+i+'')">'+
-    '<div class="ph"><div>'+
-    '<div class="pn">&#x1F3E0; דירה '+p.unit+' — '+p.own+'</div>'+
-    '<div class="pa">'+(p.tenant||'—')+' | '+(p.rooms||'')+' חד' | קומה '+(p.floor||'—')+'</div>'+
-    '</div><div style="display:flex;align-items:center;gap:8px">'+
-    '<div class="bgs">'+(isArc?arcBadge:statusBadge(p))+extBadge+'<span style="font-size:14px;font-weight:700;color:#1a73e8">'+fmtM(p.rent)+'</span></div>'+
-    '<span class="chv">&#x25BE;</span></div></div>'+
-    '<div class="pd" id="det-'+prefix+i+'">'+
-    '<div class="dg">'+
-    '<div class="di"><div class="dl">תחילת שכירות</div><div class="dv">'+fmt(p.start)+'</div></div>'+
-    '<div class="di"><div class="dl">סיום שכירות</div><div class="dv">'+fmt(p.end)+'</div></div>'+
-    '<div class="di"><div class="dl">'+(p.extensions&&p.extensions.length?'סיום אחרון':'ימים לסיום')+'</div><div class="dv">'+(p.extensions&&p.extensions.length?fmt(end):dStr)+'</div></div>'+
-    (p.arnona?'<div class="di"><div class="dl">ארנונה</div><div class="dv">'+fmtM(p.arnona)+'</div></div>':'')+
-    (p.vaad?'<div class="di"><div class="dl">ועד בית</div><div class="dv">'+fmtM(p.vaad)+'</div></div>':'')+
-    (p.guarantee?'<div class="di"><div class="dl">ערבויות</div><div class="dv">'+p.guarantee+'</div></div>':'')+
-    (p.notes?'<div class="di" style="grid-column:1/-1"><div class="dl">הערות</div><div class="dv">'+p.notes+'</div></div>':'')+
-    '</div>'+extsHTML+
-    '<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">'+
-    '<button class="abtn" onclick="event.stopPropagation();openEdit('+i+','+isArc+')">&#x270E; עריכה</button>'+
-    (!isArc?'<button class="abtn arc" onclick="event.stopPropagation();moveToArchive('+i+')">&#x1F4E6; ארכיון</button>':
-    '<button class="abtn" onclick="event.stopPropagation();restoreFromArchive('+i+')">&#x21BA; שחזר</button>')+
-    '<button class="abtn del" onclick="event.stopPropagation();deleteProp('+i+','+isArc+')">&#x1F5D1; מחק</button>'+
-    '</div></div></div>';
-}
-
-function toggleCard(id){
-  document.getElementById('card-'+id).classList.toggle('open');
-  document.getElementById('det-'+id).classList.toggle('open');
+  var html='<div class="pcard" id="card-'+cid+'" onclick="toggleCard(\''+cid+'\')">';
+  html+='<div class="ph"><div>';
+  html+='<div class="pn">&#x1F3E0; דירה '+p.unit+' &mdash; '+p.own+'</div>';
+  html+='<div class="pa">'+(p.tenant||'--')+' | '+(p.rooms||'')+' חד | קומה '+(p.floor||'--')+'</div>';
+  html+='</div><div style="display:flex;align-items:center;gap:8px">';
+  html+='<div class="bgs">'+(isArc?arcBadge:statusBadge(p))+extBadge+'<span style="font-size:14px;font-weight:700;color:#1a73e8">'+fmtM(p.rent)+'</span></div>';
+  html+='<span class="chv">&#x25BE;</span></div></div>';
+  html+='<div class="pd" id="det-'+cid+'">';
+  html+='<div class="dg">';
+  html+='<div class="di"><div class="dl">תחילת שכירות</div><div class="dv">'+fmt(p.start)+'</div></div>';
+  html+='<div class="di"><div class="dl">סיום שכירות</div><div class="dv">'+fmt(p.end)+'</div></div>';
+  html+='<div class="di"><div class="dl">'+(p.extensions&&p.extensions.length?'סיום אחרון':'ימים לסיום')+'</div><div class="dv">'+(p.extensions&&p.extensions.length?fmt(end):dStr)+'</div></div>';
+  if(p.arnona)html+='<div class="di"><div class="dl">ארנונה</div><div class="dv">'+fmtM(p.arnona)+'</div></div>';
+  if(p.vaad)html+='<div class="di"><div class="dl">ועד בית</div><div class="dv">'+fmtM(p.vaad)+'</div></div>';
+  if(p.guarantee)html+='<div class="di"><div class="dl">ערבויות</div><div class="dv">'+p.guarantee+'</div></div>';
+  if(p.notes)html+='<div class="di" style="grid-column:1/-1"><div class="dl">הערות</div><div class="dv">'+p.notes+'</div></div>';
+  html+='</div>'+extsHTML;
+  html+='<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">';
+  html+='<button class="abtn" onclick="event.stopPropagation();openEdit('+i+','+isArc+')">&#x270E; עריכה</button>';
+  if(!isArc){html+='<button class="abtn arc" onclick="event.stopPropagation();moveToArchive('+i+')">&#x1F4E6; ארכיון</button>';}
+  else{html+='<button class="abtn" onclick="event.stopPropagation();restoreFromArchive('+i+')">&#x21BA; שחזר</button>';}
+  html+='<button class="abtn del" onclick="event.stopPropagation();deleteProp('+i+','+isArc+')">&#x1F5D1; מחק</button>';
+  html+='</div></div></div>';
+  return html;
 }
 
 function renderActive(){
@@ -344,7 +335,7 @@ function renderActive(){
 
 function renderArchive(){
   var c=document.getElementById('list-archive');
-  if(!archive.length){c.innerHTML='<div style="text-align:center;padding:2rem;color:#aaa;font-size:13px">&#x1F4E6; הארכיון ריק</div>';return;}
+  if(!archive.length){c.innerHTML='<div style="text-align:center;padding:2rem;color:#aaa;font-size:13px">הארכיון ריק</div>';return;}
   c.innerHTML=archive.map(function(p,i){return cardHTML(p,i,true);}).join('');
 }
 
@@ -361,43 +352,30 @@ function renderStats(){
   var maxRent=Math.max.apply(null,active.map(function(p){return parseInt(p.rent)||0;}).concat([1]));
   var roomsKeys=Object.keys(byRooms).sort();
   var ownKeys=Object.keys(byOwn);
-  var html='<div class="stat-section"><h3>&#x1F4B0; סיכום כללי</h3><div class="stat-grid">';
-  html+='<div class="stat-card"><div class="stat-label">סה"כ שכ"ד חודשי</div><div class="stat-val">&#x20AA;'+totalRent.toLocaleString()+'</div></div>';
-  html+='<div class="stat-card"><div class="stat-label">ממוצע שכ"ד</div><div class="stat-val">&#x20AA;'+avgRent.toLocaleString()+'</div></div>';
-  html+='<div class="stat-card"><div class="stat-label">מסתיים תוך 90 יום</div><div class="stat-val">'+soon+' נכסים</div></div>';
-  html+='<div class="stat-card"><div class="stat-label">נכסים מושכרים</div><div class="stat-val">'+active.length+'</div><div class="stat-sub">מתוך '+props.length+' נכסים</div></div>';
-  if(active.length){
-    html+='<div class="stat-card"><div class="stat-label">שכ"ד מינימלי</div><div class="stat-val">&#x20AA;'+Math.min.apply(null,active.map(function(p){return parseInt(p.rent)||0;})).toLocaleString()+'</div></div>';
-    html+='<div class="stat-card"><div class="stat-label">שכ"ד מקסימלי</div><div class="stat-val">&#x20AA;'+Math.max.apply(null,active.map(function(p){return parseInt(p.rent)||0;})).toLocaleString()+'</div></div>';
-  }
-  html+='</div></div>';
-  html+='<div class="stat-section"><h3>&#x1F4CA; ממוצע שכ"ד לפי מספר חדרים</h3>';
-  roomsKeys.forEach(function(r){
-    var avg=Math.round(byRooms[r].sum/byRooms[r].count);
-    var pct=Math.round((avg/maxRent)*100);
-    html+='<div class="bar-row"><div class="bar-label">'+r+' חד'</div><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%"></div></div><div class="bar-val">&#x20AA;'+avg.toLocaleString()+' <span style="color:#aaa;font-size:11px">('+byRooms[r].count+')</span></div></div>';
-  });
-  html+='</div>';
-  html+='<div class="stat-section"><h3>&#x1F4BC; סיכום לפי בעלות</h3><div class="stat-grid">';
-  ownKeys.forEach(function(o){
-    html+='<div class="stat-card"><div class="stat-label">'+o+'</div><div class="stat-val">&#x20AA;'+byOwn[o].sum.toLocaleString()+'</div><div class="stat-sub">'+byOwn[o].count+' מושכרים מתוך '+byOwn[o].total+'</div></div>';
-  });
-  html+='</div></div>';
-  html+='<div class="stat-section"><h3>&#x1F3E0; פירוט שכ"ד לפי נכס</h3>';
-  var sorted=active.slice().sort(function(a,b){return (parseInt(b.rent)||0)-(parseInt(a.rent)||0);});
-  sorted.forEach(function(p){
-    var pct=Math.round(((parseInt(p.rent)||0)/maxRent)*100);
-    html+='<div class="bar-row"><div class="bar-label" style="width:90px">דירה '+p.unit+'</div><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%"></div></div><div class="bar-val">&#x20AA;'+parseInt(p.rent).toLocaleString()+'</div></div>';
-  });
-  html+='</div>';
-  c.innerHTML=html;
+  var h='<div class="stat-section"><h3>סיכום כללי</h3><div class="stat-grid">';
+  h+='<div class="stat-card"><div class="stat-label">סהכ שכד חודשי</div><div class="stat-val">\u20AA'+totalRent.toLocaleString()+'</div></div>';
+  h+='<div class="stat-card"><div class="stat-label">ממוצע שכד</div><div class="stat-val">\u20AA'+avgRent.toLocaleString()+'</div></div>';
+  h+='<div class="stat-card"><div class="stat-label">מסתיים תוך 90 יום</div><div class="stat-val">'+soon+' נכסים</div></div>';
+  h+='<div class="stat-card"><div class="stat-label">מושכרים</div><div class="stat-val">'+active.length+'</div><div class="stat-sub">מתוך '+props.length+'</div></div>';
+  if(active.length){h+='<div class="stat-card"><div class="stat-label">מינימלי</div><div class="stat-val">\u20AA'+Math.min.apply(null,active.map(function(p){return parseInt(p.rent)||0;})).toLocaleString()+'</div></div>';}
+  if(active.length){h+='<div class="stat-card"><div class="stat-label">מקסימלי</div><div class="stat-val">\u20AA'+Math.max.apply(null,active.map(function(p){return parseInt(p.rent)||0;})).toLocaleString()+'</div></div>';}
+  h+='</div></div>';
+  h+='<div class="stat-section"><h3>ממוצע לפי חדרים</h3>';
+  roomsKeys.forEach(function(r){var avg=Math.round(byRooms[r].sum/byRooms[r].count);var pct=Math.round((avg/maxRent)*100);h+='<div class="bar-row"><div class="bar-label">'+r+' חד</div><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%"></div></div><div class="bar-val">\u20AA'+avg.toLocaleString()+' ('+byRooms[r].count+')</div></div>';});
+  h+='</div><div class="stat-section"><h3>סיכום לפי בעלות</h3><div class="stat-grid">';
+  ownKeys.forEach(function(o){h+='<div class="stat-card"><div class="stat-label">'+o+'</div><div class="stat-val">\u20AA'+byOwn[o].sum.toLocaleString()+'</div><div class="stat-sub">'+byOwn[o].count+' מושכרים מתוך '+byOwn[o].total+'</div></div>';});
+  h+='</div></div>';
+  h+='<div class="stat-section"><h3>פירוט לפי נכס</h3>';
+  active.slice().sort(function(a,b){return (parseInt(b.rent)||0)-(parseInt(a.rent)||0);}).forEach(function(p){var pct=Math.round(((parseInt(p.rent)||0)/maxRent)*100);h+='<div class="bar-row"><div class="bar-label" style="width:90px">דירה '+p.unit+'</div><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%"></div></div><div class="bar-val">\u20AA'+parseInt(p.rent).toLocaleString()+'</div></div>';});
+  h+='</div>';
+  c.innerHTML=h;
 }
 
 function updateStats(){
   document.getElementById('s1').textContent=props.length;
   var soon=props.filter(function(p){var d=dl(getLastEnd(p));return d!==null&&d>=0&&d<=60;});
   document.getElementById('s2').textContent=soon.length;
-  document.getElementById('s3').innerHTML='&#x20AA;'+props.reduce(function(s,p){return s+(parseInt(p.rent)||0);},0).toLocaleString();
+  document.getElementById('s3').innerHTML='\u20AA'+props.reduce(function(s,p){return s+(parseInt(p.rent)||0);},0).toLocaleString();
   document.getElementById('s4').textContent=archive.length;
 }
 
@@ -405,7 +383,7 @@ function renderAlerts(){
   var soon=props.filter(function(p){var d=dl(getLastEnd(p));return d!==null&&d>=0&&d<=60;});
   var area=document.getElementById('alert-area');
   if(!soon.length){area.innerHTML='';return;}
-  area.innerHTML='<div class="alert-b">&#x1F514; <strong>מסתיים בקרוב:</strong> '+soon.map(function(p){return 'דירה '+p.unit+' ('+p.tenant+') — '+dl(getLastEnd(p))+' ימים';}).join(' | ')+'</div>';
+  area.innerHTML='<div class="alert-b">התראה: '+soon.map(function(p){return 'דירה '+p.unit+' ('+p.tenant+') -- '+dl(getLastEnd(p))+' ימים';}).join(' | ')+'</div>';
 }
 
 var extCnt={};
@@ -416,12 +394,16 @@ function addExtTo(listId,data){
   var id=listId+'-e-'+n;
   var div=document.createElement('div');
   div.id=id;div.className='ext-item';
-  div.innerHTML='<div class="ext-item-hdr"><span>הארכה '+(list.children.length+1)+'</span><button class="btn-xs" onclick="document.getElementById(''+id+'').remove()">&#x2715; הסר</button></div>'+
+  var s=data&&data.start?data.start:'';
+  var e=data&&data.end?data.end:'';
+  var r=data&&data.rent?data.rent:'';
+  var nt=data&&data.notes?data.notes:'';
+  div.innerHTML='<div class="ext-item-hdr"><span>הארכה '+(list.children.length+1)+'</span><button class="btn-xs" onclick="document.getElementById(\''+id+'\').remove()">X הסר</button></div>'+
   '<div class="ext-grid">'+
-  '<div class="fi"><label>תחילה</label><input type="date" class="ext-s" value="'+(data&&data.start?data.start:'')+'"></div>'+
-  '<div class="fi"><label>סיום</label><input type="date" class="ext-e" value="'+(data&&data.end?data.end:'')+'"></div>'+
-  '<div class="fi"><label>שכ"ד (&#x20AA;)</label><input type="number" class="ext-r" placeholder="9500" value="'+(data&&data.rent?data.rent:'')+'"></div>'+
-  '<div class="fi" style="grid-column:1/-1"><label>הערות</label><input type="text" class="ext-n" placeholder="תנאי הארכה..." value="'+(data&&data.notes?data.notes:'')+'"></div>'+
+  '<div class="fi"><label>תחילה</label><input type="date" class="ext-s" value="'+s+'"></div>'+
+  '<div class="fi"><label>סיום</label><input type="date" class="ext-e" value="'+e+'"></div>'+
+  '<div class="fi"><label>שכד</label><input type="number" class="ext-r" placeholder="9500" value="'+r+'"></div>'+
+  '<div class="fi" style="grid-column:1/-1"><label>הערות</label><input type="text" class="ext-n" placeholder="תנאי הארכה..." value="'+nt+'"></div>'+
   '</div>';
   list.appendChild(div);
 }
@@ -467,50 +449,34 @@ function showToast(msg){var t=document.getElementById('toast');t.textContent=msg
 
 function exportCSV(){
   var all=props.concat(archive);if(!all.length){showToast('אין נתונים');return;}
-  var h=['מספר דירה','בעלות','חדרים','קומה','דייר','שכ"ד','תחילה','סיום','ארנונה','ועד','ערבויות','הערות','ארכיון','הארכות'];
-  var rows=all.map(function(p){return[p.unit,p.own,p.rooms,p.floor,p.tenant,p.rent,p.start,p.end,p.arnona,p.vaad,p.guarantee,p.notes,p.archived?'כן':'לא',(p.extensions||[]).map(function(e,i){return 'הארכה'+(i+1)+': '+e.start+'-'+e.end+' '+e.rent;}).join('; ')].map(function(v){return '"'+String(v||'').replace(/"/g,'""')+'"';}).join(',');});
-  var csv='﻿'+[h.join(',')].concat(rows).join('
-');
-  var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='נכסים.csv';a.click();showToast('יוצא בהצלחה');
+  var h=['מספר דירה','בעלות','חדרים','קומה','דייר','שכד','תחילה','סיום','ארנונה','ועד','ערבויות','הערות','ארכיון'];
+  var rows=all.map(function(p){return[p.unit,p.own,p.rooms,p.floor,p.tenant,p.rent,p.start,p.end,p.arnona,p.vaad,p.guarantee,p.notes,p.archived?'כן':'לא'].map(function(v){return '"'+String(v||'').replace(/"/g,'""')+'"';}).join(',');});
+  var csv='\uFEFF'+[h.join(',')].concat(rows).join('\n');
+  var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='nekasim.csv';a.click();showToast('יוצא');
 }
 
-renderActive();updateStats();renderAlerts();
-
-
-</script>
-
-<script>
-// Login logic
-var APP_PWD = 'homeapp11';
-
-function checkPwd() {
-  var val = document.getElementById('pwd-input').value;
-  if (val === APP_PWD) {
-    localStorage.setItem('pm_auth', APP_PWD);
-    document.getElementById('login-screen').classList.remove('show');
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('main-app').style.display = 'block';
-    document.getElementById('pwd-err').style.display = 'none';
+// LOGIN
+function checkPwd(){
+  var val=document.getElementById('pwd-input').value;
+  if(val==='homeapp11'){
+    localStorage.setItem('pm_auth','ok');
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('main-app').style.display='block';
   } else {
-    document.getElementById('pwd-err').style.display = 'block';
-    document.getElementById('pwd-input').value = '';
+    document.getElementById('pwd-err').style.display='block';
+    document.getElementById('pwd-input').value='';
     document.getElementById('pwd-input').focus();
   }
 }
-
-function togglePwd() {
-  var inp = document.getElementById('pwd-input');
-  inp.type = inp.type === 'password' ? 'text' : 'password';
+function togglePwd(){
+  var i=document.getElementById('pwd-input');
+  i.type=(i.type==='password')?'text':'password';
 }
-
-document.getElementById('pwd-input').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') checkPwd();
-});
-
-// Auto-login if already authenticated
-if (localStorage.getItem('pm_auth') === APP_PWD) {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('main-app').style.display = 'block';
+document.getElementById('pwd-input').addEventListener('keydown',function(e){if(e.key==='Enter')checkPwd();});
+if(localStorage.getItem('pm_auth')==='ok'){
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('main-app').style.display='block';
+  renderActive();updateStats();renderAlerts();
 }
 </script>
 
@@ -573,15 +539,16 @@ onSnapshot(collection(db, 'archive'), (snapshot) => {
   document.getElementById('s4').textContent = archive.length;
 });
 
-// Check if Firestore is empty, if so seed with initial data
+// Seed initial data if empty
 setTimeout(async () => {
   const snap = await getDocs(collection(db, 'properties'));
-  if (snap.empty && props.length > 0) {
-    showToast('מאתחל נתונים לענן...');
-    await syncAllToFirestore();
+  if (snap.empty) {
+    for (const p of D) { await saveToFirestore(p, 'properties'); }
+    for (const p of DA) { await saveToFirestore(p, 'archive'); }
   }
 }, 2000);
 
 </script>
+
 </body>
 </html>
