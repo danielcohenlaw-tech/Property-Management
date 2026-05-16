@@ -153,7 +153,7 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
     <input type="text" id="srch" placeholder="חיפוש לפי דירה, דייר, בעלות..." oninput="renderActive()" style="flex:1">
     <select id="fown" onchange="renderActive()">
       <option value="">כל הבעלויות</option>
-      <option>אילנה</option><option>ענת</option><option>דניאל</option>
+      <option>א</option><option>ע</option><option>ד</option>
     </select>
   </div>
   <div id="list-active"></div>
@@ -223,25 +223,25 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
 <script>
 var props=[],archive=[],editIdx=-1,editIsArchive=false;
 var D=[
-  {unit:'1',own:'אילנה',rooms:'דירת גן',floor:'ק',tenant:'אדם טל',rent:17000,start:'',end:'2025-07-31',arnona:'',vaad:'',guarantee:'בנקאית 27/10/25',notes:'החל מחודש אוגוסט 24 שכד 17, עד אז 16.5. מימש אופציה 17K עד 31.7.26',extensions:[]},
-  {unit:'2',own:'אילנה',rooms:'3',floor:'1',tenant:'tlv',rent:13500,start:'',end:'2025-07-31',arnona:'',vaad:'',guarantee:'בנקאית 31/10/25',notes:'מנכים מס במקור.',extensions:[]},
-  {unit:'3',own:'דניאל',rooms:'2',floor:'1',tenant:'מידטרם דן',rent:9500,start:'2024-12-15',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'החל מאוגוסט 25 שכד עולה ל 10,000 + מדד.',extensions:[]},
-  {unit:'4',own:'ענת',rooms:'2',floor:'1',tenant:'אפרת זינגר',rent:9500,start:'2024-11-01',end:'2025-10-31',arnona:'',vaad:'',guarantee:'צק בנקאי',notes:'באופציה צמוד מדד עד 2.5%',extensions:[{start:'2025-11-01',end:'2026-07-31',rent:9500,notes:'אופציה'}]},
-  {unit:'5',own:'אילנה',rooms:'3',floor:'2',tenant:'tlv',rent:13500,start:'',end:'2026-07-31',arnona:'',vaad:'',guarantee:'ערבות 20 אלף בפקמ',notes:'מנכים מס במקור',extensions:[]},
-  {unit:'6',own:'ענת',rooms:'2',floor:'2',tenant:'tlv',rent:10500,start:'',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'מנכים מס במקור',extensions:[]},
-  {unit:'7',own:'דניאל',rooms:'2',floor:'2',tenant:'tlv',rent:10500,start:'',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'מנכים מס במקור',extensions:[]},
-  {unit:'8',own:'אילנה',rooms:'3',floor:'3',tenant:'גלינה ובנגמין',rent:13000,start:'2025-05-21',end:'2026-07-31',arnona:'',vaad:'',guarantee:'מזומן 26000 לבינל',notes:'',extensions:[{start:'2026-08-01',end:'2027-07-31',rent:13000,notes:''}]},
-  {unit:'9',own:'אילנה',rooms:'2',floor:'3',tenant:'מידטרם דן',rent:9500,start:'2025-02-01',end:'2026-08-31',arnona:'',vaad:'',guarantee:'',notes:'החל מאוגוסט 25 שכד עולה ל 10,000 + מדד.',extensions:[]},
-  {unit:'10',own:'ענת',rooms:'2',floor:'3',tenant:'מידטרם דן',rent:9500,start:'2024-12-15',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'החל מאוגוסט 25 שכד עולה ל 10,000 + מדד.',extensions:[]},
-  {unit:'12',own:'אילנה',rooms:'2',floor:'4',tenant:'דויד באבא',rent:8700,start:'2025-05-23',end:'2026-06-30',arnona:'',vaad:'',guarantee:'הופקד 26100 לבינל',notes:'באופציה צמוד למדד',extensions:[{start:'2026-07-01',end:'2027-06-30',rent:8700,notes:'אופציה צמוד מדד'}]},
-  {unit:'13',own:'דניאל',rooms:'2',floor:'4',tenant:'אילן דסנר',rent:9566,start:'2025-08-01',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'אופציה 5% או מדד+2% לפי הגבוה',extensions:[{start:'2026-08-01',end:'2027-07-31',rent:10044,notes:'5% או מדד+2%'}]},
-  {unit:'חנות רגיל',own:'אילנה',rooms:'חנות',floor:'ק',tenant:'tlv',rent:0,start:'',end:'2025-07-31',arnona:'',vaad:'',guarantee:'',notes:'מנכים מס במקור',extensions:[]},
-  {unit:'חנות מוגן',own:'אילנה',rooms:'חנות',floor:'ק',tenant:'נחמן',rent:0,start:'',end:'',arnona:'',vaad:'',guarantee:'',notes:'',extensions:[]}
+  {unit:'1',own:'א',rooms:'דירת גן',floor:'ק',tenant:'אדם טל',rent:17000,start:'',end:'2025-07-31',arnona:'',vaad:'',guarantee:'בנקאית 27/10/25',notes:'החל מחודש אוגוסט 24 שכד 17, עד אז 16.5. מימש אופציה 17K עד 31.7.26',extensions:[]},
+  {unit:'2',own:'א',rooms:'3',floor:'1',tenant:'tlv',rent:13500,start:'',end:'2025-07-31',arnona:'',vaad:'',guarantee:'בנקאית 31/10/25',notes:'מנכים מס במקור.',extensions:[]},
+  {unit:'3',own:'ד',rooms:'2',floor:'1',tenant:'מידטרם דן',rent:9500,start:'2024-12-15',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'החל מאוגוסט 25 שכד עולה ל 10,000 + מדד.',extensions:[]},
+  {unit:'4',own:'ע',rooms:'2',floor:'1',tenant:'אפרת זינגר',rent:9500,start:'2024-11-01',end:'2025-10-31',arnona:'',vaad:'',guarantee:'צק בנקאי',notes:'באופציה צמוד מדד עד 2.5%',extensions:[{start:'2025-11-01',end:'2026-07-31',rent:9500,notes:'אופציה'}]},
+  {unit:'5',own:'א',rooms:'3',floor:'2',tenant:'tlv',rent:13500,start:'',end:'2026-07-31',arnona:'',vaad:'',guarantee:'ערבות 20 אלף בפקמ',notes:'מנכים מס במקור',extensions:[]},
+  {unit:'6',own:'ע',rooms:'2',floor:'2',tenant:'tlv',rent:10500,start:'',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'מנכים מס במקור',extensions:[]},
+  {unit:'7',own:'ד',rooms:'2',floor:'2',tenant:'tlv',rent:10500,start:'',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'מנכים מס במקור',extensions:[]},
+  {unit:'8',own:'א',rooms:'3',floor:'3',tenant:'גלינה ובנגמין',rent:13000,start:'2025-05-21',end:'2026-07-31',arnona:'',vaad:'',guarantee:'מזומן 26000 לבינל',notes:'',extensions:[{start:'2026-08-01',end:'2027-07-31',rent:13000,notes:''}]},
+  {unit:'9',own:'א',rooms:'2',floor:'3',tenant:'מידטרם דן',rent:9500,start:'2025-02-01',end:'2026-08-31',arnona:'',vaad:'',guarantee:'',notes:'החל מאוגוסט 25 שכד עולה ל 10,000 + מדד.',extensions:[]},
+  {unit:'10',own:'ע',rooms:'2',floor:'3',tenant:'מידטרם דן',rent:9500,start:'2024-12-15',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'החל מאוגוסט 25 שכד עולה ל 10,000 + מדד.',extensions:[]},
+  {unit:'12',own:'א',rooms:'2',floor:'4',tenant:'דויד באבא',rent:8700,start:'2025-05-23',end:'2026-06-30',arnona:'',vaad:'',guarantee:'הופקד 26100 לבינל',notes:'באופציה צמוד למדד',extensions:[{start:'2026-07-01',end:'2027-06-30',rent:8700,notes:'אופציה צמוד מדד'}]},
+  {unit:'13',own:'ד',rooms:'2',floor:'4',tenant:'אילן דסנר',rent:9566,start:'2025-08-01',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'אופציה 5% או מדד+2% לפי הגבוה',extensions:[{start:'2026-08-01',end:'2027-07-31',rent:10044,notes:'5% או מדד+2%'}]},
+  {unit:'חנות רגיל',own:'א',rooms:'חנות',floor:'ק',tenant:'tlv',rent:0,start:'',end:'2025-07-31',arnona:'',vaad:'',guarantee:'',notes:'מנכים מס במקור',extensions:[]},
+  {unit:'חנות מוגן',own:'א',rooms:'חנות',floor:'ק',tenant:'נחמן',rent:0,start:'',end:'',arnona:'',vaad:'',guarantee:'',notes:'',extensions:[]}
 ];
 var DA=[
-  {unit:'8',own:'אילנה',rooms:'3',floor:'3',tenant:'רפאל מימון',rent:13000,start:'2024-08-01',end:'2025-07-31',arnona:'',vaad:'',guarantee:'',notes:'פינה במאי 25',extensions:[]},
-  {unit:'12',own:'אילנה',rooms:'2',floor:'4',tenant:'יאיר חיון',rent:8500,start:'2024-10-01',end:'2025-07-31',arnona:'',vaad:'',guarantee:'',notes:'פינה במאי 25.',extensions:[]},
-  {unit:'13',own:'דניאל',rooms:'2',floor:'4',tenant:'אמילי ברנס',rent:9000,start:'2024-09-01',end:'2025-07-31',arnona:'',vaad:'',guarantee:'',notes:'תפנה 31/07/2025',extensions:[]}
+  {unit:'8',own:'א',rooms:'3',floor:'3',tenant:'רפאל מימון',rent:13000,start:'2024-08-01',end:'2025-07-31',arnona:'',vaad:'',guarantee:'',notes:'פינה במאי 25',extensions:[]},
+  {unit:'12',own:'א',rooms:'2',floor:'4',tenant:'יאיר חיון',rent:8500,start:'2024-10-01',end:'2025-07-31',arnona:'',vaad:'',guarantee:'',notes:'פינה במאי 25.',extensions:[]},
+  {unit:'13',own:'ד',rooms:'2',floor:'4',tenant:'אמילי ברנס',rent:9000,start:'2024-09-01',end:'2025-07-31',arnona:'',vaad:'',guarantee:'',notes:'תפנה 31/07/2025',extensions:[]}
 ];
 
 function saveAll(){window._fbSave && window._fbSave();}
