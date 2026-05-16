@@ -113,7 +113,6 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
   .ext-grid{grid-template-columns:1fr 1fr}
 }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -136,7 +135,7 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
   <div><h1>&#x1F3E2; ניהול נכסים</h1><div class="hdr-sub">מערכת לניהול שכירויות</div></div>
   <div style="display:flex;gap:8px;flex-wrap:wrap">
   <button class="btn-s" onclick="exportCSV()" style="font-size:12px">&#x2B07; ייצוא CSV</button>
-  <label class="btn-s" style="font-size:12px;cursor:pointer">&#x2B06; ייבוא Excel<input type="file" id="import-file" accept=".xlsx,.xls" style="display:none" onchange="importExcel(this)"></label>
+  <label class="btn-s" style="font-size:12px;cursor:pointer">&#x2B06; ייבוא CSV<input type="file" id="import-file" accept=".csv" style="display:none" onchange="importCSV(this)"></label>
   <button class="btn-s" onclick="resetDB()" style="font-size:12px;color:#e74c3c;border-color:#e74c3c">&#x1F5D1; מחק הכל</button>
 </div>
 </div>
@@ -463,57 +462,60 @@ function exportCSV(){
   var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='nekasim.csv';a.click();showToast('יוצא');
 }
 
-// IMPORT FROM EXCEL
-function importExcel(input) {
+// IMPORT FROM CSV
+function importCSV(input) {
   var file = input.files[0];
   if (!file) return;
+  if (!confirm('ייבוא זה ימחק את כל הנתונים הקיימים ויחליף אותם. להמשיך?')) { input.value=''; return; }
   var reader = new FileReader();
   reader.onload = async function(e) {
     try {
-      var data = new Uint8Array(e.target.result);
-      var wb = XLSX.read(data, {type: 'array'});
-      var ws = wb.Sheets[wb.SheetNames[0]];
-      var rows = XLSX.utils.sheet_to_json(ws, {defval: ''});
-      if (!rows.length) { showToast('הקובץ ריק'); return; }
+      var text = e.target.result;
+      // Remove BOM if present
+      if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+      var lines = text.split(/
+?
+/).filter(function(l){ return l.trim(); });
+      if (lines.length < 2) { showToast('הקובץ ריק'); return; }
       
-      var newProps = rows.filter(function(r){ return !r['ארכיון'] || r['ארכיון'] === 'לא'; }).map(function(r){
-        return {
-          unit: String(r['מספר דירה'] || r['unit'] || ''),
-          own: String(r['בעלות'] || r['own'] || ''),
-          rooms: String(r['חדרים'] || r['rooms'] || ''),
-          floor: String(r['קומה'] || r['floor'] || ''),
-          tenant: String(r['דייר'] || r['tenant'] || ''),
-          rent: Number(r['שכד'] || r['rent'] || 0),
-          start: String(r['תחילה'] || r['start'] || ''),
-          end: String(r['סיום'] || r['end'] || ''),
-          arnona: String(r['ארנונה'] || r['arnona'] || ''),
-          vaad: String(r['ועד'] || r['vaad'] || ''),
-          guarantee: String(r['ערבויות'] || r['guarantee'] || ''),
-          notes: String(r['הערות'] || r['notes'] || ''),
-          extensions: [],
-          archived: false
-        };
-      });
-      var newArchive = rows.filter(function(r){ return r['ארכיון'] === 'כן'; }).map(function(r){
-        return {
-          unit: String(r['מספר דירה'] || r['unit'] || ''),
-          own: String(r['בעלות'] || r['own'] || ''),
-          rooms: String(r['חדרים'] || r['rooms'] || ''),
-          floor: String(r['קומה'] || r['floor'] || ''),
-          tenant: String(r['דייר'] || r['tenant'] || ''),
-          rent: Number(r['שכד'] || r['rent'] || 0),
-          start: String(r['תחילה'] || r['start'] || ''),
-          end: String(r['סיום'] || r['end'] || ''),
-          arnona: String(r['ארנונה'] || r['arnona'] || ''),
-          vaad: String(r['ועד'] || r['vaad'] || ''),
-          guarantee: String(r['ערבויות'] || r['guarantee'] || ''),
-          notes: String(r['הערות'] || r['notes'] || ''),
-          extensions: [],
-          archived: true
-        };
-      });
+      // Parse headers
+      var headers = parseCSVLine(lines[0]);
+      var rows = [];
+      for (var i=1; i<lines.length; i++) {
+        var vals = parseCSVLine(lines[i]);
+        var row = {};
+        headers.forEach(function(h,j){ row[h.trim()] = (vals[j]||'').trim(); });
+        rows.push(row);
+      }
       
-      if (!newProps.length && !newArchive.length) { showToast('לא נמצאו נכסים בקובץ'); return; }
+      function getVal(row, keys) {
+        for (var k=0; k<keys.length; k++) { if (row[keys[k]] !== undefined) return row[keys[k]]; }
+        return '';
+      }
+      
+      function mapRow(r, isArc) {
+        return {
+          unit: getVal(r,['מספר דירה','unit']),
+          own: getVal(r,['בעלות','own']),
+          rooms: getVal(r,['חדרים','rooms']),
+          floor: getVal(r,['קומה','floor']),
+          tenant: getVal(r,['דייר','tenant']),
+          rent: Number(getVal(r,['שכד','rent'])||0),
+          start: getVal(r,['תחילה','start']),
+          end: getVal(r,['סיום','end']),
+          arnona: getVal(r,['ארנונה','arnona']),
+          vaad: getVal(r,['ועד','vaad']),
+          guarantee: getVal(r,['ערבויות','guarantee']),
+          notes: getVal(r,['הערות','notes']),
+          extensions: [],
+          archived: isArc
+        };
+      }
+      
+      var newProps = rows.filter(function(r){ return getVal(r,['ארכיון']) !== 'כן'; }).map(function(r){ return mapRow(r,false); });
+      var newArchive = rows.filter(function(r){ return getVal(r,['ארכיון']) === 'כן'; }).map(function(r){ return mapRow(r,true); });
+      
+      if (!newProps.length && !newArchive.length) { showToast('לא נמצאו נכסים'); return; }
       
       showToast('מייבא נתונים...');
       await window._fbDeleteAll();
@@ -528,7 +530,19 @@ function importExcel(input) {
     }
     input.value = '';
   };
-  reader.readAsArrayBuffer(file);
+  reader.readAsText(file, 'UTF-8');
+}
+
+function parseCSVLine(line) {
+  var result = [], cur = '', inQ = false;
+  for (var i=0; i<line.length; i++) {
+    var c = line[i];
+    if (c === '"') { inQ = !inQ; }
+    else if (c === ',' && !inQ) { result.push(cur); cur = ''; }
+    else { cur += c; }
+  }
+  result.push(cur);
+  return result;
 }
 
 // RESET DB
