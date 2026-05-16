@@ -8,15 +8,16 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
 .app{max-width:900px;margin:0 auto;padding:16px}
-.hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;background:#fff;border-radius:12px;padding:16px 20px;border:1px solid #e0e0e0}
+.hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;background:#fff;border-radius:12px;padding:16px 20px;border:1px solid #e0e0e0;flex-wrap:wrap;gap:8px}
 .hdr h1{font-size:20px;font-weight:600}
 .hdr-sub{font-size:12px;color:#888;margin-top:2px}
+.hdr-btns{display:flex;gap:8px;flex-wrap:wrap}
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
 .sc{background:#fff;border-radius:10px;padding:14px 16px;border:1px solid #e0e0e0}
 .sl{font-size:11px;color:#888;margin-bottom:4px}
 .sv{font-size:22px;font-weight:600;color:#222}
-.tabs{display:flex;border-bottom:2px solid #e0e0e0;margin-bottom:16px;background:#fff;border-radius:12px 12px 0 0;padding:0 12px}
-.tab{padding:12px 16px;font-size:13px;cursor:pointer;color:#888;border-bottom:3px solid transparent;margin-bottom:-2px;background:none;border-top:none;border-left:none;border-right:none;font-weight:500}
+.tabs{display:flex;border-bottom:2px solid #e0e0e0;margin-bottom:16px;background:#fff;border-radius:12px 12px 0 0;padding:0 12px;flex-wrap:wrap}
+.tab{padding:12px 14px;font-size:13px;cursor:pointer;color:#888;border-bottom:3px solid transparent;margin-bottom:-2px;background:none;border-top:none;border-left:none;border-right:none;font-weight:500}
 .tab.active{color:#1a73e8;border-bottom-color:#1a73e8;font-weight:600}
 .sec{display:none;background:#fff;border-radius:0 0 12px 12px;padding:16px;border:1px solid #e0e0e0;border-top:none}
 .sec.active{display:block}
@@ -30,17 +31,18 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
 .st{grid-column:1/-1;font-size:13px;font-weight:700;color:#444;padding:8px 0 4px;border-bottom:2px solid #f0f0f0;margin-top:8px}
 .ext-wrap{grid-column:1/-1;border:1px solid #e8e8e8;border-radius:10px;padding:12px;background:#fafafa}
 .ext-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.ext-hdr span{font-size:12px;font-weight:600;color:#666}
 .ext-item{background:#fff;border:1px solid #e0e0e0;border-radius:8px;padding:10px 12px;margin-bottom:8px}
 .ext-item-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .ext-item-hdr span{font-size:12px;font-weight:600;color:#888}
 .ext-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.btn-p{background:#1a73e8;color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:13px;font-weight:600;cursor:pointer}
+.btn-p{background:#1a73e8;color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:600;cursor:pointer}
 .btn-p:hover{background:#1557b0}
-.btn-s{background:#fff;border:1px solid #ddd;border-radius:8px;padding:10px 16px;font-size:13px;color:#444;cursor:pointer;font-weight:500}
+.btn-s{background:#fff;border:1px solid #ddd;border-radius:8px;padding:9px 14px;font-size:13px;color:#444;cursor:pointer;font-weight:500}
 .btn-s:hover{background:#f5f5f5}
 .btn-xs{background:#fff;border:1px solid #ddd;border-radius:6px;padding:3px 8px;font-size:11px;color:#888;cursor:pointer}
 .btn-xs:hover{border-color:#e74c3c;color:#e74c3c}
+.btn-danger{background:#fff;border:1px solid #e74c3c;border-radius:8px;padding:9px 14px;font-size:13px;color:#e74c3c;cursor:pointer;font-weight:500}
+.btn-danger:hover{background:#fce8e8}
 .brow{display:flex;justify-content:flex-end;gap:8px;margin-top:12px;grid-column:1/-1}
 .pcard{background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:14px 16px;margin-bottom:8px;cursor:pointer;transition:border-color 0.15s}
 .pcard:hover{border-color:#1a73e8}
@@ -63,7 +65,7 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
 .dv{font-size:13px;color:#222;font-weight:600}
 .chv{font-size:16px;color:#aaa;transition:transform 0.2s;flex-shrink:0;display:inline-block}
 .pcard.open .chv{transform:rotate(180deg)}
-.frow{display:flex;gap:8px;margin-bottom:12px}
+.frow{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .frow input,.frow select{font-size:13px;border:1px solid #ddd;border-radius:8px;padding:8px 12px;background:#fff;color:#222}
 .abtn{background:#fff;border:1px solid #ddd;border-radius:8px;padding:5px 12px;font-size:12px;color:#666;cursor:pointer;margin-left:6px}
 .abtn:hover{border-color:#888;color:#222}
@@ -90,24 +92,21 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
 .bar-track{flex:1;background:#f0f0f0;border-radius:4px;height:16px;overflow:hidden}
 .bar-fill{height:100%;border-radius:4px;background:#1a73e8}
 .bar-val{font-size:12px;font-weight:600;color:#222;width:80px;flex-shrink:0}
-.login-screen{position:fixed;top:0;left:0;right:0;bottom:0;background:#f5f5f5;z-index:999;display:flex;align-items:center;justify-content:center}
+.login-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:#f5f5f5;z-index:999;display:flex;align-items:center;justify-content:center}
 .login-box{background:#fff;border-radius:16px;padding:32px 28px;width:90%;max-width:340px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,0.12);border:1px solid #e0e0e0}
 .login-box h2{font-size:22px;font-weight:700;margin-bottom:6px;color:#222}
 .login-sub{font-size:13px;color:#888;margin-bottom:24px}
-.pwd-wrap{position:relative;margin-bottom:14px}
-.pwd-wrap input{width:100%;border:1px solid #ddd;border-radius:8px;padding:11px 14px 11px 44px;font-size:16px;font-family:Arial,sans-serif;color:#222;text-align:center}
-.pwd-wrap input:focus{outline:none;border-color:#1a73e8}
-.pwd-eye{position:absolute;left:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:20px;padding:0;line-height:1;color:#aaa}
+.pwd-row{position:relative;margin-bottom:14px}
+.pwd-row input{width:100%;border:1px solid #ddd;border-radius:8px;padding:11px 14px 11px 44px;font-size:16px;font-family:Arial,sans-serif;color:#222;text-align:center}
+.pwd-row input:focus{outline:none;border-color:#1a73e8}
+.eye-btn{position:absolute;left:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:20px;line-height:1;color:#aaa;padding:0}
 .login-btn{width:100%;background:#1a73e8;color:#fff;border:none;border-radius:8px;padding:12px;font-size:15px;font-weight:600;cursor:pointer;margin-bottom:8px}
 .login-btn:hover{background:#1557b0}
-.login-err{color:#e74c3c;font-size:13px;display:none;margin-top:4px}
+.login-err{color:#e74c3c;font-size:13px;display:none}
 @media(max-width:600px){
   .stats-row{grid-template-columns:repeat(2,1fr)}
   .fg{grid-template-columns:1fr}
-  .fi.full{grid-column:1}
-  .st{grid-column:1}
-  .ext-wrap{grid-column:1}
-  .brow{grid-column:1}
+  .fi.full,.st,.ext-wrap,.brow{grid-column:1}
   .dg{grid-template-columns:repeat(2,1fr)}
   .stat-grid{grid-template-columns:repeat(2,1fr)}
   .ext-grid{grid-template-columns:1fr 1fr}
@@ -116,16 +115,16 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
 </head>
 <body>
 
-<div class="login-screen" id="login-screen">
+<div class="login-overlay" id="login-overlay">
   <div class="login-box">
     <h2>&#x1F3E2; ניהול נכסים</h2>
     <div class="login-sub">הזן סיסמה להמשך</div>
-    <div class="pwd-wrap">
+    <div class="pwd-row">
       <input type="password" id="pwd-input" placeholder="סיסמה" autocomplete="off">
-      <button class="pwd-eye" onclick="togglePwd()">&#x1F441;</button>
+      <button class="eye-btn" id="eye-btn">&#x1F441;</button>
     </div>
-    <button class="login-btn" onclick="checkPwd()">כניסה</button>
-    <div class="login-err" id="pwd-err">סיסמה שגויה, נסה שוב</div>
+    <button class="login-btn" id="login-btn">כניסה</button>
+    <div class="login-err" id="login-err">סיסמה שגויה, נסה שוב</div>
   </div>
 </div>
 
@@ -133,7 +132,11 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
 <div class="app">
 <div class="hdr">
   <div><h1>&#x1F3E2; ניהול נכסים</h1><div class="hdr-sub">מערכת לניהול שכירויות</div></div>
-  <button class="btn-s" onclick="exportCSV()" style="font-size:12px">&#x2B07; ייצוא CSV</button>
+  <div class="hdr-btns">
+    <button class="btn-s" id="export-btn" style="font-size:12px">&#x2B07; ייצוא CSV</button>
+    <label class="btn-s" style="font-size:12px;cursor:pointer">&#x2B06; ייבוא CSV<input type="file" id="import-input" accept=".csv" style="display:none"></label>
+    <button class="btn-danger" id="reset-btn" style="font-size:12px">&#x1F5D1; מחק הכל</button>
+  </div>
 </div>
 <div class="stats-row">
   <div class="sc"><div class="sl">נכסים פעילים</div><div class="sv" id="s1">0</div></div>
@@ -164,7 +167,7 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
   <div class="fg">
     <div class="st">&#x1F3E0; פרטי הנכס</div>
     <div class="fi"><label>מספר דירה / שם</label><input type="text" id="f-unit" placeholder="1, חנות, דירת גן..."></div>
-    <div class="fi"><label>בעלות</label><input type="text" id="f-own" placeholder="אילנה / ענת / דניאל"></div>
+    <div class="fi"><label>בעלות</label><input type="text" id="f-own" placeholder="א / ע / ד"></div>
     <div class="fi"><label>מספר חדרים</label><input type="text" id="f-rooms" placeholder="2, 3, דירת גן"></div>
     <div class="fi"><label>קומה</label><input type="text" id="f-floor" placeholder="1, 2, קרקע"></div>
     <div class="st">&#x1F464; שוכר ושכירות</div>
@@ -178,7 +181,10 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
     <div class="fi full"><label>הערות</label><textarea id="f-notes" placeholder="הערות חופשיות..."></textarea></div>
     <div class="st">&#x1F504; הארכות שכירות</div>
     <div class="ext-wrap full">
-      <div class="ext-hdr"><span>הארכות (ללא הגבלה)</span><button class="btn-s" onclick="addExtTo('f-ext-list')" style="font-size:12px;padding:6px 12px">+ הוסף הארכה</button></div>
+      <div class="ext-hdr">
+        <span style="font-size:12px;font-weight:600;color:#666">הארכות (ללא הגבלה)</span>
+        <button class="btn-s" onclick="addExt('f-ext-list')" style="font-size:12px;padding:6px 12px">+ הוסף הארכה</button>
+      </div>
       <div id="f-ext-list"></div>
     </div>
     <div class="brow">
@@ -207,7 +213,10 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
       <div class="fi"><label>ערבויות</label><input type="text" id="e-guarantee"></div>
       <div class="fi full"><label>הערות</label><textarea id="e-notes"></textarea></div>
       <div class="ext-wrap full">
-        <div class="ext-hdr"><span>הארכות</span><button class="btn-s" onclick="addExtTo('e-ext-list')" style="font-size:12px;padding:6px 12px">+ הוסף הארכה</button></div>
+        <div class="ext-hdr">
+          <span style="font-size:12px;font-weight:600;color:#666">הארכות</span>
+          <button class="btn-s" onclick="addExt('e-ext-list')" style="font-size:12px;padding:6px 12px">+ הוסף הארכה</button>
+        </div>
         <div id="e-ext-list"></div>
       </div>
       <div class="brow">
@@ -221,66 +230,39 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
 <div class="toast" id="toast"></div>
 
 <script>
-var props=[],archive=[],editIdx=-1,editIsArchive=false;
-// Clear old localStorage data
-localStorage.removeItem('pm_v6');
-var D=[
-  {unit:'1',own:'א',rooms:'דירת גן',floor:'ק',tenant:'אדם טל',rent:17000,start:'',end:'2025-07-31',arnona:'',vaad:'',guarantee:'בנקאית 27/10/25',notes:'החל מחודש אוגוסט 24 שכד 17, עד אז 16.5. מימש אופציה 17K עד 31.7.26',extensions:[]},
-  {unit:'2',own:'א',rooms:'3',floor:'1',tenant:'tlv',rent:13500,start:'',end:'2025-07-31',arnona:'',vaad:'',guarantee:'בנקאית 31/10/25',notes:'מנכים מס במקור.',extensions:[]},
-  {unit:'3',own:'ד',rooms:'2',floor:'1',tenant:'מידטרם דן',rent:9500,start:'2024-12-15',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'החל מאוגוסט 25 שכד עולה ל 10,000 + מדד.',extensions:[]},
-  {unit:'4',own:'ע',rooms:'2',floor:'1',tenant:'אפרת זינגר',rent:9500,start:'2024-11-01',end:'2025-10-31',arnona:'',vaad:'',guarantee:'צק בנקאי',notes:'באופציה צמוד מדד עד 2.5%',extensions:[{start:'2025-11-01',end:'2026-07-31',rent:9500,notes:'אופציה'}]},
-  {unit:'5',own:'א',rooms:'3',floor:'2',tenant:'tlv',rent:13500,start:'',end:'2026-07-31',arnona:'',vaad:'',guarantee:'ערבות 20 אלף בפקמ',notes:'מנכים מס במקור',extensions:[]},
-  {unit:'6',own:'ע',rooms:'2',floor:'2',tenant:'tlv',rent:10500,start:'',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'מנכים מס במקור',extensions:[]},
-  {unit:'7',own:'ד',rooms:'2',floor:'2',tenant:'tlv',rent:10500,start:'',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'מנכים מס במקור',extensions:[]},
-  {unit:'8',own:'א',rooms:'3',floor:'3',tenant:'גלינה ובנגמין',rent:13000,start:'2025-05-21',end:'2026-07-31',arnona:'',vaad:'',guarantee:'מזומן 26000 לבינל',notes:'',extensions:[{start:'2026-08-01',end:'2027-07-31',rent:13000,notes:''}]},
-  {unit:'9',own:'א',rooms:'2',floor:'3',tenant:'מידטרם דן',rent:9500,start:'2025-02-01',end:'2026-08-31',arnona:'',vaad:'',guarantee:'',notes:'החל מאוגוסט 25 שכד עולה ל 10,000 + מדד.',extensions:[]},
-  {unit:'10',own:'ע',rooms:'2',floor:'3',tenant:'מידטרם דן',rent:9500,start:'2024-12-15',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'החל מאוגוסט 25 שכד עולה ל 10,000 + מדד.',extensions:[]},
-  {unit:'12',own:'א',rooms:'2',floor:'4',tenant:'דויד באבא',rent:8700,start:'2025-05-23',end:'2026-06-30',arnona:'',vaad:'',guarantee:'הופקד 26100 לבינל',notes:'באופציה צמוד למדד',extensions:[{start:'2026-07-01',end:'2027-06-30',rent:8700,notes:'אופציה צמוד מדד'}]},
-  {unit:'13',own:'ד',rooms:'2',floor:'4',tenant:'אילן דסנר',rent:9566,start:'2025-08-01',end:'2026-07-31',arnona:'',vaad:'',guarantee:'',notes:'אופציה 5% או מדד+2% לפי הגבוה',extensions:[{start:'2026-08-01',end:'2027-07-31',rent:10044,notes:'5% או מדד+2%'}]},
-  {unit:'חנות רגיל',own:'א',rooms:'חנות',floor:'ק',tenant:'tlv',rent:0,start:'',end:'2025-07-31',arnona:'',vaad:'',guarantee:'',notes:'מנכים מס במקור',extensions:[]},
-  {unit:'חנות מוגן',own:'א',rooms:'חנות',floor:'ק',tenant:'נחמן',rent:0,start:'',end:'',arnona:'',vaad:'',guarantee:'',notes:'',extensions:[]}
-];
-var DA=[
-  {unit:'8',own:'א',rooms:'3',floor:'3',tenant:'רפאל מימון',rent:13000,start:'2024-08-01',end:'2025-07-31',arnona:'',vaad:'',guarantee:'',notes:'פינה במאי 25',extensions:[]},
-  {unit:'12',own:'א',rooms:'2',floor:'4',tenant:'יאיר חיון',rent:8500,start:'2024-10-01',end:'2025-07-31',arnona:'',vaad:'',guarantee:'',notes:'פינה במאי 25.',extensions:[]},
-  {unit:'13',own:'ד',rooms:'2',floor:'4',tenant:'אמילי ברנס',rent:9000,start:'2024-09-01',end:'2025-07-31',arnona:'',vaad:'',guarantee:'',notes:'תפנה 31/07/2025',extensions:[]}
-];
+var props = [], archive = [], editIdx = -1, editIsArchive = false, extCnt = {};
 
-function saveAll(){window._fbSave && window._fbSave();}
-function fmt(d){if(!d)return '--';return new Date(d).toLocaleDateString('he-IL');}
-function fmtM(n){return n?'\u20AA'+parseInt(n).toLocaleString():'--';}
-function dl(d){if(!d)return null;return Math.ceil((new Date(d)-new Date())/86400000);}
-function getLastEnd(p){if(p.extensions&&p.extensions.length){var l=p.extensions[p.extensions.length-1];if(l.end)return l.end;}return p.end;}
+function fmt(d){ if(!d) return '--'; return new Date(d).toLocaleDateString('he-IL'); }
+function fmtM(n){ return n ? '\u20AA' + parseInt(n).toLocaleString() : '--'; }
+function dl(d){ if(!d) return null; return Math.ceil((new Date(d) - new Date()) / 86400000); }
+function getLastEnd(p){
+  if(p.extensions && p.extensions.length){ var l=p.extensions[p.extensions.length-1]; if(l.end) return l.end; }
+  return p.end;
+}
+function showToast(msg){ var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); },2500); }
 
 function sw(t){
   var tabs=['active','archive','stats','add'];
-  document.querySelectorAll('.tab').forEach(function(b,i){b.classList.toggle('active',tabs[i]===t);});
-  tabs.forEach(function(id){var el=document.getElementById('tab-'+id);if(el)el.classList.toggle('active',id===t);});
-  if(t==='active')renderActive();
-  if(t==='archive')renderArchive();
-  if(t==='stats')renderStats();
+  document.querySelectorAll('.tab').forEach(function(b,i){ b.classList.toggle('active',tabs[i]===t); });
+  tabs.forEach(function(id){ var el=document.getElementById('tab-'+id); if(el) el.classList.toggle('active',id===t); });
+  if(t==='active') renderActive();
+  if(t==='archive') renderArchive();
+  if(t==='stats') renderStats();
 }
 
 function statusBadge(p){
-  var end=getLastEnd(p);var d=dl(end);
-  if(!p.tenant||!end)return '<span class="bg b-fr">ללא סיום</span>';
-  if(d!==null&&d<0)return '<span class="bg b-exp">פג תוקף</span>';
-  if(d!==null&&d<=60)return '<span class="bg b-w">מסתיים בקרוב</span>';
+  var end=getLastEnd(p); var d=dl(end);
+  if(!p.tenant||!end) return '<span class="bg b-fr">ללא סיום</span>';
+  if(d!==null&&d<0) return '<span class="bg b-exp">פג תוקף</span>';
+  if(d!==null&&d<=60) return '<span class="bg b-w">מסתיים בקרוב</span>';
   return '<span class="bg b-ok">פעיל</span>';
 }
 
-function toggleCard(id){
-  document.getElementById('card-'+id).classList.toggle('open');
-  document.getElementById('det-'+id).classList.toggle('open');
-}
-
-function cardHTML(p,i,isArc){
-  var end=getLastEnd(p);var d=dl(end);
-  var dStr=d!==null&&d>=0?d+' ימים':'הסתיים';
-  var extBadge=p.extensions&&p.extensions.length?'<span class="bg" style="background:#e8f0fe;color:#1a73e8">'+p.extensions.length+' הארכות</span>':'';
-  var arcBadge=isArc?'<span class="bg b-ar">ארכיון</span>':'';
-  var pfx=isArc?'a':'p';
-  var cid=pfx+String(i);
+function cardHTML(p, i, isArc){
+  var end=getLastEnd(p); var d=dl(end);
+  var dStr=(d!==null&&d>=0)?d+' ימים':'הסתיים';
+  var cid=(isArc?'a':'p')+i;
+  var extBadge=(p.extensions&&p.extensions.length)?'<span class="bg" style="background:#e8f0fe;color:#1a73e8">'+p.extensions.length+' הארכות</span>':'';
   var extsHTML='';
   if(p.extensions&&p.extensions.length){
     extsHTML='<div style="margin-bottom:10px"><div style="font-size:11px;font-weight:700;color:#888;margin-bottom:6px">הארכות שכירות</div>';
@@ -288,40 +270,42 @@ function cardHTML(p,i,isArc){
       extsHTML+='<div style="background:#f8f9fa;border:1px solid #e0e0e0;border-radius:8px;padding:8px 12px;margin-bottom:5px">';
       extsHTML+='<div style="font-size:11px;font-weight:700;color:#888;margin-bottom:4px">הארכה '+(ei+1)+'</div>';
       extsHTML+='<div class="dg" style="grid-template-columns:repeat(3,1fr)">';
-      if(e.start)extsHTML+='<div class="di"><div class="dl">תחילה</div><div class="dv">'+fmt(e.start)+'</div></div>';
+      if(e.start) extsHTML+='<div class="di"><div class="dl">תחילה</div><div class="dv">'+fmt(e.start)+'</div></div>';
       extsHTML+='<div class="di"><div class="dl">סיום</div><div class="dv">'+fmt(e.end)+'</div></div>';
-      if(e.rent)extsHTML+='<div class="di"><div class="dl">שכד</div><div class="dv">'+fmtM(e.rent)+'</div></div>';
-      if(e.notes)extsHTML+='<div class="di" style="grid-column:1/-1"><div class="dl">הערות</div><div class="dv">'+e.notes+'</div></div>';
+      if(e.rent) extsHTML+='<div class="di"><div class="dl">שכ"ד</div><div class="dv">'+fmtM(e.rent)+'</div></div>';
+      if(e.notes) extsHTML+='<div class="di" style="grid-column:1/-1"><div class="dl">הערות</div><div class="dv">'+e.notes+'</div></div>';
       extsHTML+='</div></div>';
     });
     extsHTML+='</div>';
   }
-  var parts=[];
-  parts.push('<div class="pcard" id="card-'+cid+'" onclick="toggleCard(&#39;'+cid+'&#39;)">');
-  parts.push('<div class="ph"><div>');
-  parts.push('<div class="pn">&#x1F3E0; דירה '+p.unit+' &mdash; '+p.own+'</div>');
-  parts.push('<div class="pa">'+(p.tenant||'--')+' | '+(p.rooms||'')+' חד | קומה '+(p.floor||'--')+'</div>');
-  parts.push('</div><div style="display:flex;align-items:center;gap:8px">');
-  parts.push('<div class="bgs">'+(isArc?arcBadge:statusBadge(p))+extBadge+'<span style="font-size:14px;font-weight:700;color:#1a73e8">'+fmtM(p.rent)+'</span></div>');
-  parts.push('<span class="chv">&#x25BE;</span></div></div>');
-  parts.push('<div class="pd" id="det-'+cid+'">');
-  parts.push('<div class="dg">');
-  parts.push('<div class="di"><div class="dl">תחילת שכירות</div><div class="dv">'+fmt(p.start)+'</div></div>');
-  parts.push('<div class="di"><div class="dl">סיום שכירות</div><div class="dv">'+fmt(p.end)+'</div></div>');
-  parts.push('<div class="di"><div class="dl">'+(p.extensions&&p.extensions.length?'סיום אחרון':'ימים לסיום')+'</div><div class="dv">'+(p.extensions&&p.extensions.length?fmt(end):dStr)+'</div></div>');
-  if(p.arnona)parts.push('<div class="di"><div class="dl">ארנונה</div><div class="dv">'+fmtM(p.arnona)+'</div></div>');
-  if(p.vaad)parts.push('<div class="di"><div class="dl">ועד בית</div><div class="dv">'+fmtM(p.vaad)+'</div></div>');
-  if(p.guarantee)parts.push('<div class="di"><div class="dl">ערבויות</div><div class="dv">'+p.guarantee+'</div></div>');
-  if(p.notes)parts.push('<div class="di" style="grid-column:1/-1"><div class="dl">הערות</div><div class="dv">'+p.notes+'</div></div>');
-  parts.push('</div>'+extsHTML);
-  parts.push('<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">');
-  parts.push('<button class="abtn" onclick="event.stopPropagation();openEdit('+i+','+isArc+')">&#x270E; עריכה</button>');
-  if(!isArc){parts.push('<button class="abtn arc" onclick="event.stopPropagation();moveToArchive('+i+')">&#x1F4E6; ארכיון</button>');}
-  else{parts.push('<button class="abtn" onclick="event.stopPropagation();restoreFromArchive('+i+')">&#x21BA; שחזר</button>');}
-  parts.push('<button class="abtn del" onclick="event.stopPropagation();deleteProp('+i+','+isArc+')">&#x1F5D1; מחק</button>');
-  parts.push('</div></div></div>');
-  return parts.join('');
+  var h='<div class="pcard" id="card-'+cid+'" onclick="toggleCard(\''+cid+'\')">';
+  h+='<div class="ph"><div>';
+  h+='<div class="pn">&#x1F3E0; דירה '+p.unit+' &mdash; '+p.own+'</div>';
+  h+='<div class="pa">'+(p.tenant||'--')+' | '+(p.rooms||'')+' חד | קומה '+(p.floor||'--')+'</div>';
+  h+='</div><div style="display:flex;align-items:center;gap:8px">';
+  h+='<div class="bgs">'+(isArc?'<span class="bg b-ar">ארכיון</span>':statusBadge(p))+extBadge;
+  h+='<span style="font-size:14px;font-weight:700;color:#1a73e8">'+fmtM(p.rent)+'</span></div>';
+  h+='<span class="chv">&#x25BE;</span></div></div>';
+  h+='<div class="pd" id="det-'+cid+'">';
+  h+='<div class="dg">';
+  h+='<div class="di"><div class="dl">תחילת שכירות</div><div class="dv">'+fmt(p.start)+'</div></div>';
+  h+='<div class="di"><div class="dl">סיום שכירות</div><div class="dv">'+fmt(p.end)+'</div></div>';
+  h+='<div class="di"><div class="dl">'+((p.extensions&&p.extensions.length)?'סיום אחרון':'ימים לסיום')+'</div><div class="dv">'+((p.extensions&&p.extensions.length)?fmt(end):dStr)+'</div></div>';
+  if(p.arnona) h+='<div class="di"><div class="dl">ארנונה</div><div class="dv">'+fmtM(p.arnona)+'</div></div>';
+  if(p.vaad) h+='<div class="di"><div class="dl">ועד בית</div><div class="dv">'+fmtM(p.vaad)+'</div></div>';
+  if(p.guarantee) h+='<div class="di"><div class="dl">ערבויות</div><div class="dv">'+p.guarantee+'</div></div>';
+  if(p.notes) h+='<div class="di" style="grid-column:1/-1"><div class="dl">הערות</div><div class="dv">'+p.notes+'</div></div>';
+  h+='</div>'+extsHTML;
+  h+='<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">';
+  h+='<button class="abtn" onclick="event.stopPropagation();openEdit('+i+','+isArc+')">&#x270E; עריכה</button>';
+  if(!isArc) h+='<button class="abtn arc" onclick="event.stopPropagation();moveToArchive('+i+')">&#x1F4E6; ארכיון</button>';
+  else h+='<button class="abtn" onclick="event.stopPropagation();restoreFromArchive('+i+')">&#x21BA; שחזר</button>';
+  h+='<button class="abtn del" onclick="event.stopPropagation();deleteProp('+i+','+isArc+')">&#x1F5D1; מחק</button>';
+  h+='</div></div></div>';
+  return h;
 }
+
+function toggleCard(id){ document.getElementById('card-'+id).classList.toggle('open'); document.getElementById('det-'+id).classList.toggle('open'); }
 
 function renderActive(){
   var q=(document.getElementById('srch').value||'').toLowerCase();
@@ -331,161 +315,209 @@ function renderActive(){
     var mq=(p.unit||'').toLowerCase().indexOf(q)>=0||(p.tenant||'').toLowerCase().indexOf(q)>=0||(p.own||'').toLowerCase().indexOf(q)>=0;
     return mq&&(!fo||p.own===fo);
   });
-  updateStats();renderAlerts();
-  if(!f.length){c.innerHTML='<div style="text-align:center;padding:2rem;color:#aaa;font-size:13px">אין נכסים תואמים</div>';return;}
-  c.innerHTML=f.map(function(p){return cardHTML(p,props.indexOf(p),false);}).join('');
+  updateStats(); renderAlerts();
+  if(!f.length){ c.innerHTML='<div style="text-align:center;padding:2rem;color:#aaa;font-size:13px">אין נכסים תואמים</div>'; return; }
+  c.innerHTML=f.map(function(p){ return cardHTML(p,props.indexOf(p),false); }).join('');
 }
 
 function renderArchive(){
   var c=document.getElementById('list-archive');
-  if(!archive.length){c.innerHTML='<div style="text-align:center;padding:2rem;color:#aaa;font-size:13px">הארכיון ריק</div>';return;}
-  c.innerHTML=archive.map(function(p,i){return cardHTML(p,i,true);}).join('');
+  if(!archive.length){ c.innerHTML='<div style="text-align:center;padding:2rem;color:#aaa;font-size:13px">הארכיון ריק</div>'; return; }
+  c.innerHTML=archive.map(function(p,i){ return cardHTML(p,i,true); }).join('');
 }
 
 function renderStats(){
   var c=document.getElementById('stats-content');
-  var active=props.filter(function(p){return p.rent&&parseInt(p.rent)>0;});
-  var totalRent=active.reduce(function(s,p){return s+(parseInt(p.rent)||0);},0);
+  var active=props.filter(function(p){ return p.rent&&parseInt(p.rent)>0; });
+  var totalRent=active.reduce(function(s,p){ return s+(parseInt(p.rent)||0); },0);
   var avgRent=active.length?Math.round(totalRent/active.length):0;
-  var byRooms={};
-  active.forEach(function(p){var r=p.rooms||'?';if(!byRooms[r])byRooms[r]={sum:0,count:0};byRooms[r].sum+=parseInt(p.rent)||0;byRooms[r].count++;});
-  var byOwn={};
-  props.forEach(function(p){var o=p.own||'?';if(!byOwn[o])byOwn[o]={sum:0,count:0,total:0};byOwn[o].total++;if(p.rent&&parseInt(p.rent)>0){byOwn[o].sum+=parseInt(p.rent)||0;byOwn[o].count++;}});
-  var soon=props.filter(function(p){var d=dl(getLastEnd(p));return d!==null&&d>=0&&d<=90;}).length;
-  var maxRent=Math.max.apply(null,active.map(function(p){return parseInt(p.rent)||0;}).concat([1]));
-  var roomsKeys=Object.keys(byRooms).sort();
-  var ownKeys=Object.keys(byOwn);
+  var byRooms={},byOwn={};
+  active.forEach(function(p){ var r=p.rooms||'?'; if(!byRooms[r])byRooms[r]={sum:0,count:0}; byRooms[r].sum+=parseInt(p.rent)||0; byRooms[r].count++; });
+  props.forEach(function(p){ var o=p.own||'?'; if(!byOwn[o])byOwn[o]={sum:0,count:0,total:0}; byOwn[o].total++; if(p.rent&&parseInt(p.rent)>0){byOwn[o].sum+=parseInt(p.rent)||0;byOwn[o].count++;} });
+  var soon=props.filter(function(p){ var d=dl(getLastEnd(p)); return d!==null&&d>=0&&d<=90; }).length;
+  var maxRent=Math.max.apply(null,active.map(function(p){ return parseInt(p.rent)||0; }).concat([1]));
   var h='<div class="stat-section"><h3>סיכום כללי</h3><div class="stat-grid">';
-  h+='<div class="stat-card"><div class="stat-label">סהכ שכד חודשי</div><div class="stat-val">\u20AA'+totalRent.toLocaleString()+'</div></div>';
-  h+='<div class="stat-card"><div class="stat-label">ממוצע שכד</div><div class="stat-val">\u20AA'+avgRent.toLocaleString()+'</div></div>';
+  h+='<div class="stat-card"><div class="stat-label">סה"כ שכ"ד חודשי</div><div class="stat-val">\u20AA'+totalRent.toLocaleString()+'</div></div>';
+  h+='<div class="stat-card"><div class="stat-label">ממוצע שכ"ד</div><div class="stat-val">\u20AA'+avgRent.toLocaleString()+'</div></div>';
   h+='<div class="stat-card"><div class="stat-label">מסתיים תוך 90 יום</div><div class="stat-val">'+soon+' נכסים</div></div>';
   h+='<div class="stat-card"><div class="stat-label">מושכרים</div><div class="stat-val">'+active.length+'</div><div class="stat-sub">מתוך '+props.length+'</div></div>';
-  if(active.length){h+='<div class="stat-card"><div class="stat-label">מינימלי</div><div class="stat-val">\u20AA'+Math.min.apply(null,active.map(function(p){return parseInt(p.rent)||0;})).toLocaleString()+'</div></div>';}
-  if(active.length){h+='<div class="stat-card"><div class="stat-label">מקסימלי</div><div class="stat-val">\u20AA'+Math.max.apply(null,active.map(function(p){return parseInt(p.rent)||0;})).toLocaleString()+'</div></div>';}
   h+='</div></div>';
   h+='<div class="stat-section"><h3>ממוצע לפי חדרים</h3>';
-  roomsKeys.forEach(function(r){var avg=Math.round(byRooms[r].sum/byRooms[r].count);var pct=Math.round((avg/maxRent)*100);h+='<div class="bar-row"><div class="bar-label">'+r+' חד</div><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%"></div></div><div class="bar-val">\u20AA'+avg.toLocaleString()+' ('+byRooms[r].count+')</div></div>';});
-  h+='</div><div class="stat-section"><h3>סיכום לפי בעלות</h3><div class="stat-grid">';
-  ownKeys.forEach(function(o){h+='<div class="stat-card"><div class="stat-label">'+o+'</div><div class="stat-val">\u20AA'+byOwn[o].sum.toLocaleString()+'</div><div class="stat-sub">'+byOwn[o].count+' מושכרים מתוך '+byOwn[o].total+'</div></div>';});
-  h+='</div></div>';
-  h+='<div class="stat-section"><h3>פירוט לפי נכס</h3>';
-  active.slice().sort(function(a,b){return (parseInt(b.rent)||0)-(parseInt(a.rent)||0);}).forEach(function(p){var pct=Math.round(((parseInt(p.rent)||0)/maxRent)*100);h+='<div class="bar-row"><div class="bar-label" style="width:90px">דירה '+p.unit+'</div><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%"></div></div><div class="bar-val">\u20AA'+parseInt(p.rent).toLocaleString()+'</div></div>';});
+  Object.keys(byRooms).sort().forEach(function(r){ var avg=Math.round(byRooms[r].sum/byRooms[r].count); var pct=Math.round((avg/maxRent)*100); h+='<div class="bar-row"><div class="bar-label">'+r+' חד</div><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%"></div></div><div class="bar-val">\u20AA'+avg.toLocaleString()+' ('+byRooms[r].count+')</div></div>'; });
+  h+='</div><div class="stat-section"><h3>לפי בעלות</h3><div class="stat-grid">';
+  Object.keys(byOwn).forEach(function(o){ h+='<div class="stat-card"><div class="stat-label">'+o+'</div><div class="stat-val">\u20AA'+byOwn[o].sum.toLocaleString()+'</div><div class="stat-sub">'+byOwn[o].count+' מתוך '+byOwn[o].total+'</div></div>'; });
+  h+='</div></div><div class="stat-section"><h3>פירוט לפי נכס</h3>';
+  active.slice().sort(function(a,b){ return (parseInt(b.rent)||0)-(parseInt(a.rent)||0); }).forEach(function(p){ var pct=Math.round(((parseInt(p.rent)||0)/maxRent)*100); h+='<div class="bar-row"><div class="bar-label" style="width:90px">דירה '+p.unit+'</div><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%"></div></div><div class="bar-val">\u20AA'+parseInt(p.rent).toLocaleString()+'</div></div>'; });
   h+='</div>';
   c.innerHTML=h;
 }
 
 function updateStats(){
   document.getElementById('s1').textContent=props.length;
-  var soon=props.filter(function(p){var d=dl(getLastEnd(p));return d!==null&&d>=0&&d<=60;});
+  var soon=props.filter(function(p){ var d=dl(getLastEnd(p)); return d!==null&&d>=0&&d<=60; });
   document.getElementById('s2').textContent=soon.length;
-  document.getElementById('s3').innerHTML='\u20AA'+props.reduce(function(s,p){return s+(parseInt(p.rent)||0);},0).toLocaleString();
+  document.getElementById('s3').innerHTML='\u20AA'+props.reduce(function(s,p){ return s+(parseInt(p.rent)||0); },0).toLocaleString();
   document.getElementById('s4').textContent=archive.length;
 }
 
 function renderAlerts(){
-  var soon=props.filter(function(p){var d=dl(getLastEnd(p));return d!==null&&d>=0&&d<=60;});
+  var soon=props.filter(function(p){ var d=dl(getLastEnd(p)); return d!==null&&d>=0&&d<=60; });
   var area=document.getElementById('alert-area');
-  if(!soon.length){area.innerHTML='';return;}
-  area.innerHTML='<div class="alert-b">התראה: '+soon.map(function(p){return 'דירה '+p.unit+' ('+p.tenant+') -- '+dl(getLastEnd(p))+' ימים';}).join(' | ')+'</div>';
+  if(!soon.length){ area.innerHTML=''; return; }
+  area.innerHTML='<div class="alert-b">&#x1F514; <strong>מסתיים בקרוב:</strong> '+soon.map(function(p){ return 'דירה '+p.unit+' ('+p.tenant+') &mdash; '+dl(getLastEnd(p))+' ימים'; }).join(' | ')+'</div>';
 }
 
-var extCnt={};
-function addExtTo(listId,data){
+function addExt(listId, data){
   var list=document.getElementById(listId);
-  if(!extCnt[listId])extCnt[listId]=0;
-  var n=extCnt[listId]++;
-  var id=listId+'-e-'+n;
-  var div=document.createElement('div');
-  div.id=id;div.className='ext-item';
-  var s=data&&data.start?data.start:'';
-  var e=data&&data.end?data.end:'';
-  var r=data&&data.rent?data.rent:'';
-  var nt=data&&data.notes?data.notes:'';
+  if(!extCnt[listId]) extCnt[listId]=0;
+  var n=extCnt[listId]++; var id=listId+'-e-'+n;
+  var div=document.createElement('div'); div.id=id; div.className='ext-item';
   div.innerHTML='<div class="ext-item-hdr"><span>הארכה '+(list.children.length+1)+'</span><button class="btn-xs" onclick="document.getElementById(\''+id+'\').remove()">X הסר</button></div>'+
-  '<div class="ext-grid">'+
-  '<div class="fi"><label>תחילה</label><input type="date" class="ext-s" value="'+s+'"></div>'+
-  '<div class="fi"><label>סיום</label><input type="date" class="ext-e" value="'+e+'"></div>'+
-  '<div class="fi"><label>שכד</label><input type="number" class="ext-r" placeholder="9500" value="'+r+'"></div>'+
-  '<div class="fi" style="grid-column:1/-1"><label>הערות</label><input type="text" class="ext-n" placeholder="תנאי הארכה..." value="'+nt+'"></div>'+
-  '</div>';
+    '<div class="ext-grid">'+
+    '<div class="fi"><label>תחילה</label><input type="date" class="ext-s" value="'+(data&&data.start?data.start:'')+'"></div>'+
+    '<div class="fi"><label>סיום</label><input type="date" class="ext-e" value="'+(data&&data.end?data.end:'')+'"></div>'+
+    '<div class="fi"><label>שכ"ד</label><input type="number" class="ext-r" placeholder="9500" value="'+(data&&data.rent?data.rent:'')+'"></div>'+
+    '<div class="fi" style="grid-column:1/-1"><label>הערות</label><input type="text" class="ext-n" placeholder="תנאי הארכה..." value="'+(data&&data.notes?data.notes:'')+'"></div>'+
+    '</div>';
   list.appendChild(div);
 }
 
 function getExts(listId){
-  var list=document.getElementById(listId);if(!list)return[];
-  return Array.from(list.children).map(function(el){return{start:el.querySelector('.ext-s').value||'',end:el.querySelector('.ext-e').value||'',rent:el.querySelector('.ext-r').value||'',notes:el.querySelector('.ext-n').value||''};});
+  var list=document.getElementById(listId); if(!list) return [];
+  return Array.from(list.children).map(function(el){
+    return {start:el.querySelector('.ext-s').value||'',end:el.querySelector('.ext-e').value||'',rent:el.querySelector('.ext-r').value||'',notes:el.querySelector('.ext-n').value||''};
+  });
 }
 
 function getForm(p){
-  return{unit:document.getElementById(p+'unit').value.trim(),own:document.getElementById(p+'own').value.trim(),rooms:document.getElementById(p+'rooms').value.trim(),floor:document.getElementById(p+'floor').value.trim(),tenant:document.getElementById(p+'tenant').value.trim(),rent:document.getElementById(p+'rent').value,start:document.getElementById(p+'start').value,end:document.getElementById(p+'end').value,arnona:document.getElementById(p+'arnona').value,vaad:document.getElementById(p+'vaad').value,guarantee:document.getElementById(p+'guarantee').value.trim(),notes:document.getElementById(p+'notes').value.trim(),extensions:getExts(p==='f-'?'f-ext-list':'e-ext-list'),archived:false};
+  return {unit:document.getElementById(p+'unit').value.trim(),own:document.getElementById(p+'own').value.trim(),rooms:document.getElementById(p+'rooms').value.trim(),floor:document.getElementById(p+'floor').value.trim(),tenant:document.getElementById(p+'tenant').value.trim(),rent:document.getElementById(p+'rent').value,start:document.getElementById(p+'start').value,end:document.getElementById(p+'end').value,arnona:document.getElementById(p+'arnona').value,vaad:document.getElementById(p+'vaad').value,guarantee:document.getElementById(p+'guarantee').value.trim(),notes:document.getElementById(p+'notes').value.trim(),extensions:getExts(p==='f-'?'f-ext-list':'e-ext-list'),archived:false};
 }
 
-function saveProp(){var p=getForm('f-');if(!p.unit){showToast('יש להזין מספר דירה');return;}props.push(p);saveAll();clearForm();sw('active');showToast('הנכס נשמר');}
+function saveProp(){
+  var p=getForm('f-'); if(!p.unit){ showToast('יש להזין מספר דירה'); return; }
+  props.push(p); window.fbSaveAll&&window.fbSaveAll();
+  clearForm(); sw('active'); showToast('הנכס נשמר');
+}
 
 function clearForm(){
-  ['f-unit','f-own','f-rooms','f-floor','f-tenant','f-rent','f-start','f-end','f-arnona','f-vaad','f-guarantee','f-notes'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
-  document.getElementById('f-ext-list').innerHTML='';extCnt['f-ext-list']=0;
+  ['f-unit','f-own','f-rooms','f-floor','f-tenant','f-rent','f-start','f-end','f-arnona','f-vaad','f-guarantee','f-notes'].forEach(function(id){ var el=document.getElementById(id); if(el)el.value=''; });
+  document.getElementById('f-ext-list').innerHTML=''; extCnt['f-ext-list']=0;
 }
 
 function openEdit(i,isArc){
-  editIdx=i;editIsArchive=isArc;
+  editIdx=i; editIsArchive=isArc;
   var p=isArc?archive[i]:props[i];
-  ['unit','own','rooms','floor','tenant','rent','start','end','arnona','vaad','guarantee','notes'].forEach(function(k){var el=document.getElementById('e-'+k);if(el)el.value=p[k]||'';});
-  var eList=document.getElementById('e-ext-list');eList.innerHTML='';extCnt['e-ext-list']=0;
-  (p.extensions||[]).forEach(function(e){addExtTo('e-ext-list',e);});
+  ['unit','own','rooms','floor','tenant','rent','start','end','arnona','vaad','guarantee','notes'].forEach(function(k){ var el=document.getElementById('e-'+k); if(el)el.value=p[k]||''; });
+  var eList=document.getElementById('e-ext-list'); eList.innerHTML=''; extCnt['e-ext-list']=0;
+  (p.extensions||[]).forEach(function(e){ addExt('e-ext-list',e); });
   document.getElementById('edit-modal').classList.add('open');
 }
 
-function closeModal(){document.getElementById('edit-modal').classList.remove('open');editIdx=-1;}
+function closeModal(){ document.getElementById('edit-modal').classList.remove('open'); editIdx=-1; }
 
 function saveEdit(){
-  if(editIdx<0)return;var p=getForm('e-');p.archived=editIsArchive;
-  if(editIsArchive)archive[editIdx]=p;else props[editIdx]=p;
-  saveAll();closeModal();if(editIsArchive)renderArchive();else renderActive();showToast('השינויים נשמרו');
+  if(editIdx<0) return;
+  var p=getForm('e-'); p.archived=editIsArchive;
+  if(editIsArchive) archive[editIdx]=p; else props[editIdx]=p;
+  window.fbSaveAll&&window.fbSaveAll();
+  closeModal(); if(editIsArchive) renderArchive(); else renderActive();
+  showToast('השינויים נשמרו');
 }
 
-function moveToArchive(i){archive.unshift(JSON.parse(JSON.stringify(props[i])));archive[0].archived=true;props.splice(i,1);saveAll();renderActive();showToast('הועבר לארכיון');}
-function restoreFromArchive(i){var p=JSON.parse(JSON.stringify(archive[i]));p.archived=false;props.push(p);archive.splice(i,1);saveAll();renderArchive();updateStats();showToast('שוחזר');}
-function deleteProp(i,isArc){if(isArc)archive.splice(i,1);else props.splice(i,1);saveAll();if(isArc)renderArchive();else renderActive();showToast('נמחק');}
+function moveToArchive(i){
+  var p=JSON.parse(JSON.stringify(props[i])); p.archived=true;
+  archive.unshift(p); props.splice(i,1);
+  window.fbSaveAll&&window.fbSaveAll(); renderActive(); showToast('הועבר לארכיון');
+}
 
-function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
+function restoreFromArchive(i){
+  var p=JSON.parse(JSON.stringify(archive[i])); p.archived=false;
+  props.push(p); archive.splice(i,1);
+  window.fbSaveAll&&window.fbSaveAll(); renderArchive(); updateStats(); showToast('שוחזר');
+}
+
+function deleteProp(i,isArc){
+  if(!confirm('למחוק נכס זה?')) return;
+  if(isArc) archive.splice(i,1); else props.splice(i,1);
+  window.fbSaveAll&&window.fbSaveAll();
+  if(isArc) renderArchive(); else renderActive(); showToast('נמחק');
+}
 
 function exportCSV(){
-  var all=props.concat(archive);if(!all.length){showToast('אין נתונים');return;}
+  var all=props.concat(archive); if(!all.length){ showToast('אין נתונים'); return; }
   var h=['מספר דירה','בעלות','חדרים','קומה','דייר','שכד','תחילה','סיום','ארנונה','ועד','ערבויות','הערות','ארכיון'];
-  var rows=all.map(function(p){return[p.unit,p.own,p.rooms,p.floor,p.tenant,p.rent,p.start,p.end,p.arnona,p.vaad,p.guarantee,p.notes,p.archived?'כן':'לא'].map(function(v){return '"'+String(v||'').replace(/"/g,'""')+'"';}).join(',');});
+  var rows=all.map(function(p){ return [p.unit,p.own,p.rooms,p.floor,p.tenant,p.rent,p.start,p.end,p.arnona,p.vaad,p.guarantee,p.notes,p.archived?'כן':'לא'].map(function(v){ return '"'+String(v||'').replace(/"/g,'""')+'"'; }).join(','); });
   var csv='\uFEFF'+[h.join(',')].concat(rows).join('\n');
-  var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='nekasim.csv';a.click();showToast('יוצא');
+  var a=document.createElement('a'); a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv); a.download='nekasim.csv'; a.click();
+  showToast('יוצא בהצלחה');
 }
 
-// LOGIN
-function checkPwd(){
-  var val=document.getElementById('pwd-input').value;
-  if(val==='homeapp11'){
-    localStorage.setItem('pm_auth','ok');
-    document.getElementById('login-screen').style.display='none';
-    document.getElementById('main-app').style.display='block';
-  } else {
-    document.getElementById('pwd-err').style.display='block';
-    document.getElementById('pwd-input').value='';
-    document.getElementById('pwd-input').focus();
+function parseCSVLine(line){
+  var result=[],cur='',inQ=false;
+  for(var i=0;i<line.length;i++){
+    var c=line[i];
+    if(c==='"'){inQ=!inQ;}
+    else if(c===','&&!inQ){result.push(cur);cur='';}
+    else{cur+=c;}
   }
+  result.push(cur);
+  return result;
 }
-function togglePwd(){
-  var i=document.getElementById('pwd-input');
-  i.type=(i.type==='password')?'text':'password';
-}
-document.getElementById('pwd-input').addEventListener('keydown',function(e){if(e.key==='Enter')checkPwd();});
-if(localStorage.getItem('pm_auth')==='ok'){
-  document.getElementById('login-screen').style.display='none';
-  document.getElementById('main-app').style.display='block';
-  renderActive();updateStats();renderAlerts();
-}
+
+document.getElementById('export-btn').addEventListener('click',exportCSV);
+
+document.getElementById('import-input').addEventListener('change',function(){
+  var file=this.files[0]; if(!file) return;
+  if(!confirm('ייבוא זה ימחק את כל הנתונים הקיימים. להמשיך?')){ this.value=''; return; }
+  var reader=new FileReader(); var self=this;
+  reader.onload=function(e){
+    try{
+      var text=e.target.result;
+      if(text.charCodeAt(0)===0xFEFF) text=text.slice(1);
+      var lines=text.replace(/\r/g,'').split('\n').filter(function(l){ return l.trim(); });
+      if(lines.length<2){ showToast('הקובץ ריק'); return; }
+      var headers=parseCSVLine(lines[0]);
+      var rows=[];
+      for(var i=1;i<lines.length;i++){
+        var vals=parseCSVLine(lines[i]);
+        var row={};
+        headers.forEach(function(hdr,j){ row[hdr.trim()]=(vals[j]||'').trim(); });
+        rows.push(row);
+      }
+      function g(row,keys){ for(var k=0;k<keys.length;k++){ if(row[keys[k]]!==undefined) return row[keys[k]]; } return ''; }
+      function mapRow(r,isArc){ return {unit:g(r,['מספר דירה','unit']),own:g(r,['בעלות','own']),rooms:g(r,['חדרים','rooms']),floor:g(r,['קומה','floor']),tenant:g(r,['דייר','tenant']),rent:Number(g(r,['שכד','rent'])||0),start:g(r,['תחילה','start']),end:g(r,['סיום','end']),arnona:g(r,['ארנונה','arnona']),vaad:g(r,['ועד','vaad']),guarantee:g(r,['ערבויות','guarantee']),notes:g(r,['הערות','notes']),extensions:[],archived:isArc}; }
+      var newProps=rows.filter(function(r){ return g(r,['ארכיון'])!=='כן'; }).map(function(r){ return mapRow(r,false); });
+      var newArc=rows.filter(function(r){ return g(r,['ארכיון'])==='כן'; }).map(function(r){ return mapRow(r,true); });
+      if(!newProps.length&&!newArc.length){ showToast('לא נמצאו נכסים'); return; }
+      showToast('מייבא...');
+      if(window.fbDeleteAll){
+        window.fbDeleteAll().then(function(){
+          props=newProps; archive=newArc;
+          window.fbSaveAll&&window.fbSaveAll();
+          renderActive(); showToast('יובאו '+newProps.length+' נכסים!');
+        });
+      }
+    }catch(err){ console.error(err); showToast('שגיאה בקריאת הקובץ'); }
+    self.value='';
+  };
+  reader.readAsText(file,'UTF-8');
+});
+
+document.getElementById('reset-btn').addEventListener('click',function(){
+  if(!confirm('למחוק את כל הנתונים? פעולה זו אינה הפיכה!')){ return; }
+  showToast('מוחק...');
+  if(window.fbDeleteAll){
+    window.fbDeleteAll().then(function(){
+      props=[]; archive=[];
+      renderActive(); showToast('כל הנתונים נמחקו');
+    });
+  }
+});
 </script>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-import { getFirestore, collection, onSnapshot, doc, setDoc, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getFirestore, collection, onSnapshot, doc, writeBatch, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCbvUouVgPxaT1yyBSfDUiVC8nGFT5mWiw",
@@ -493,64 +525,77 @@ const firebaseConfig = {
   projectId: "property-management-6ad27",
   storageBucket: "property-management-6ad27.firebasestorage.app",
   messagingSenderId: "42421794814",
-  appId: "1:42421794814:web:9211c525fe7ec84b6af2af",
-  measurementId: "G-RZTFC06ZCL"
+  appId: "1:42421794814:web:9211c525fe7ec84b6af2af"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Override saveAll to use Firestore
-async function saveToFirestore(item, collectionName) {
-  const id = item.unit + '_' + (item.tenant||'empty') + '_' + (item.start||'nostart');
-  const safeId = id.replace(/[^a-zA-Z0-9_-]/g, '_').substring(0, 100);
-  await setDoc(doc(db, collectionName, safeId), item);
+function makeId(p){
+  return (String(p.unit||'')+'_'+String(p.tenant||'e')+'_'+String(p.start||'ns')).replace(/[^a-zA-Z0-9_-]/g,'_').substring(0,100);
 }
 
-async function deleteFromFirestore(item, collectionName) {
-  const id = item.unit + '_' + (item.tenant||'empty') + '_' + (item.start||'nostart');
-  const safeId = id.replace(/[^a-zA-Z0-9_-]/g, '_').substring(0, 100);
-  await deleteDoc(doc(db, collectionName, safeId));
-}
-
-async function syncAllToFirestore() {
-  // Save all active props
-  for (const p of props) {
-    await saveToFirestore(p, 'properties');
-  }
-  // Save all archive
-  for (const p of archive) {
-    await saveToFirestore(p, 'archive');
-  }
-}
-
-// Override saveAll
-window.saveAll = async function() {
-  await syncAllToFirestore();
+window.fbSaveAll = async function(){
+  var batch = writeBatch(db);
+  var snaps = await Promise.all([getDocs(collection(db,'properties')), getDocs(collection(db,'archive'))]);
+  snaps[0].docs.forEach(function(d){ batch.delete(d.ref); });
+  snaps[1].docs.forEach(function(d){ batch.delete(d.ref); });
+  props.forEach(function(p){ batch.set(doc(db,'properties',makeId(p)), p); });
+  archive.forEach(function(p){ batch.set(doc(db,'archive',makeId(p)), p); });
+  await batch.commit();
 };
 
-// Listen to Firestore in real time
-onSnapshot(collection(db, 'properties'), (snapshot) => {
-  props = snapshot.docs.map(d => d.data());
-  renderActive();
-  updateStats();
-  renderAlerts();
+window.fbDeleteAll = async function(){
+  var batch = writeBatch(db);
+  var snaps = await Promise.all([getDocs(collection(db,'properties')), getDocs(collection(db,'archive'))]);
+  snaps[0].docs.forEach(function(d){ batch.delete(d.ref); });
+  snaps[1].docs.forEach(function(d){ batch.delete(d.ref); });
+  await batch.commit();
+};
+
+onSnapshot(collection(db,'properties'), function(snapshot){
+  props = snapshot.docs.map(function(d){ return d.data(); });
+  if(document.getElementById('main-app').style.display!=='none'){
+    renderActive(); updateStats(); renderAlerts();
+  }
 });
 
-onSnapshot(collection(db, 'archive'), (snapshot) => {
-  archive = snapshot.docs.map(d => d.data());
+onSnapshot(collection(db,'archive'), function(snapshot){
+  archive = snapshot.docs.map(function(d){ return d.data(); });
   document.getElementById('s4').textContent = archive.length;
 });
+</script>
 
-// Seed initial data if empty
-setTimeout(async () => {
-  const snap = await getDocs(collection(db, 'properties'));
-  if (snap.empty) {
-    for (const p of D) { await saveToFirestore(p, 'properties'); }
-    for (const p of DA) { await saveToFirestore(p, 'archive'); }
+<script>
+var APP_PWD = 'homeapp11';
+
+function doLogin(){
+  var val = document.getElementById('pwd-input').value;
+  if(val === APP_PWD){
+    localStorage.setItem('pm_auth','ok');
+    document.getElementById('login-overlay').style.display='none';
+    document.getElementById('main-app').style.display='block';
+    document.getElementById('login-err').style.display='none';
+    setTimeout(function(){ renderActive(); updateStats(); renderAlerts(); }, 800);
+  } else {
+    document.getElementById('login-err').style.display='block';
+    document.getElementById('pwd-input').value='';
+    document.getElementById('pwd-input').focus();
   }
-}, 2000);
+}
 
+document.getElementById('login-btn').addEventListener('click', doLogin);
+document.getElementById('pwd-input').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
+document.getElementById('eye-btn').addEventListener('click', function(){
+  var inp = document.getElementById('pwd-input');
+  inp.type = inp.type==='password' ? 'text' : 'password';
+});
+
+if(localStorage.getItem('pm_auth')==='ok'){
+  document.getElementById('login-overlay').style.display='none';
+  document.getElementById('main-app').style.display='block';
+  setTimeout(function(){ renderActive(); updateStats(); renderAlerts(); }, 800);
+}
 </script>
 
 </body>
