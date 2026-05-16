@@ -113,37 +113,6 @@ body{font-family:Arial,sans-serif;background:#f5f5f5;direction:rtl;color:#222}
   .ext-grid{grid-template-columns:1fr 1fr}
 }
 </style>
-<script>
-function checkPwd(){
-  var val=document.getElementById('pwd-input').value;
-  if(val==='homeapp11'){
-    localStorage.setItem('pm_auth','ok');
-    document.getElementById('login-screen').style.display='none';
-    document.getElementById('main-app').style.display='block';
-    if(typeof renderActive==='function'){renderActive();updateStats();renderAlerts();}
-  } else {
-    document.getElementById('pwd-err').style.display='block';
-    document.getElementById('pwd-input').value='';
-    document.getElementById('pwd-input').focus();
-  }
-}
-
-function importCSV(el){if(window._importCSV)window._importCSV(el);}
-function resetDB(){if(window._resetDB)window._resetDB();}
-window._exportCSV = function exportCSV() {if(window._exportCSV)window._exportCSV();}
-function togglePwd(){
-  var i=document.getElementById('pwd-input');
-  i.type=(i.type==='password')?'text':'password';
-}
-window.addEventListener('DOMContentLoaded',function(){
-  document.getElementById('pwd-input').addEventListener('keydown',function(e){if(e.key==='Enter')checkPwd();});
-  if(localStorage.getItem('pm_auth')==='ok'){
-    document.getElementById('login-screen').style.display='none';
-    document.getElementById('main-app').style.display='block';
-    setTimeout(function(){if(typeof renderActive==='function'){renderActive();updateStats();renderAlerts();}},500);
-  }
-});
-</script>
 </head>
 <body>
 
@@ -164,11 +133,7 @@ window.addEventListener('DOMContentLoaded',function(){
 <div class="app">
 <div class="hdr">
   <div><h1>&#x1F3E2; ניהול נכסים</h1><div class="hdr-sub">מערכת לניהול שכירויות</div></div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap">
   <button class="btn-s" onclick="exportCSV()" style="font-size:12px">&#x2B07; ייצוא CSV</button>
-  <label class="btn-s" style="font-size:12px;cursor:pointer">&#x2B06; ייבוא CSV<input type="file" id="import-file" accept=".csv" style="display:none" onchange="importCSV(this)"></label>
-  <button class="btn-s" onclick="resetDB()" style="font-size:12px;color:#e74c3c;border-color:#e74c3c">&#x1F5D1; מחק הכל</button>
-</div>
 </div>
 <div class="stats-row">
   <div class="sc"><div class="sl">נכסים פעילים</div><div class="sv" id="s1">0</div></div>
@@ -485,7 +450,7 @@ function deleteProp(i,isArc){if(isArc)archive.splice(i,1);else props.splice(i,1)
 
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
 
-window._exportCSV = function exportCSV() {
+function exportCSV(){
   var all=props.concat(archive);if(!all.length){showToast('אין נתונים');return;}
   var h=['מספר דירה','בעלות','חדרים','קומה','דייר','שכד','תחילה','סיום','ארנונה','ועד','ערבויות','הערות','ארכיון'];
   var rows=all.map(function(p){return[p.unit,p.own,p.rooms,p.floor,p.tenant,p.rent,p.start,p.end,p.arnona,p.vaad,p.guarantee,p.notes,p.archived?'כן':'לא'].map(function(v){return '"'+String(v||'').replace(/"/g,'""')+'"';}).join(',');});
@@ -493,119 +458,19 @@ window._exportCSV = function exportCSV() {
   var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='nekasim.csv';a.click();showToast('יוצא');
 }
 
-// IMPORT FROM CSV
-window._importCSV = function importCSV(input) {
-  var file = input.files[0];
-  if (!file) return;
-  if (!confirm('ייבוא זה ימחק את כל הנתונים הקיימים ויחליף אותם. להמשיך?')) { input.value=''; return; }
-  var reader = new FileReader();
-  reader.onload = async function(e) {
-    try {
-      var text = e.target.result;
-      // Remove BOM if present
-      if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-      var lines = text.replace(/
-/g,'').split('
-').filter(function(l){ return l.trim(); });
-      if (lines.length < 2) { showToast('הקובץ ריק'); return; }
-      
-      // Parse headers
-      var headers = parseCSVLine(lines[0]);
-      var rows = [];
-      for (var i=1; i<lines.length; i++) {
-        var vals = parseCSVLine(lines[i]);
-        var row = {};
-        headers.forEach(function(h,j){ row[h.trim()] = (vals[j]||'').trim(); });
-        rows.push(row);
-      }
-      
-      function getVal(row, keys) {
-        for (var k=0; k<keys.length; k++) { if (row[keys[k]] !== undefined) return row[keys[k]]; }
-        return '';
-      }
-      
-      function mapRow(r, isArc) {
-        return {
-          unit: getVal(r,['מספר דירה','unit']),
-          own: getVal(r,['בעלות','own']),
-          rooms: getVal(r,['חדרים','rooms']),
-          floor: getVal(r,['קומה','floor']),
-          tenant: getVal(r,['דייר','tenant']),
-          rent: Number(getVal(r,['שכד','rent'])||0),
-          start: getVal(r,['תחילה','start']),
-          end: getVal(r,['סיום','end']),
-          arnona: getVal(r,['ארנונה','arnona']),
-          vaad: getVal(r,['ועד','vaad']),
-          guarantee: getVal(r,['ערבויות','guarantee']),
-          notes: getVal(r,['הערות','notes']),
-          extensions: [],
-          archived: isArc
-        };
-      }
-      
-      var newProps = rows.filter(function(r){ return getVal(r,['ארכיון']) !== 'כן'; }).map(function(r){ return mapRow(r,false); });
-      var newArchive = rows.filter(function(r){ return getVal(r,['ארכיון']) === 'כן'; }).map(function(r){ return mapRow(r,true); });
-      
-      if (!newProps.length && !newArchive.length) { showToast('לא נמצאו נכסים'); return; }
-      
-      showToast('מייבא נתונים...');
-      await window._fbDeleteAll();
-      props = newProps;
-      archive = newArchive;
-      await saveAll();
-      renderActive();
-      showToast('יובאו ' + newProps.length + ' נכסים בהצלחה!');
-    } catch(err) {
-      console.error(err);
-      showToast('שגיאה בקריאת הקובץ');
-    }
-    input.value = '';
-  };
-  reader.readAsText(file, 'UTF-8');
-}
-
-function parseCSVLine(line) {
-  var result = [], cur = '', inQ = false;
-  for (var i=0; i<line.length; i++) {
-    var c = line[i];
-    if (c === '"') { inQ = !inQ; }
-    else if (c === ',' && !inQ) { result.push(cur); cur = ''; }
-    else { cur += c; }
-  }
-  result.push(cur);
-  return result;
-}
-
-// RESET DB
-window._resetDB = async function resetDB() {
-  if (!confirm('למחוק את כל הנתונים מהמסד? פעולה זו אינה הפיכה!')) return;
-  showToast('מוחק...');
-  await window._fbDeleteAll();
-  props = [];
-  archive = [];
-  renderActive();
-  showToast('כל הנתונים נמחקו');
-}
-
 // LOGIN
-
 function checkPwd(){
   var val=document.getElementById('pwd-input').value;
   if(val==='homeapp11'){
     localStorage.setItem('pm_auth','ok');
     document.getElementById('login-screen').style.display='none';
     document.getElementById('main-app').style.display='block';
-    if(typeof renderActive==='function'){renderActive();updateStats();renderAlerts();}
   } else {
     document.getElementById('pwd-err').style.display='block';
     document.getElementById('pwd-input').value='';
     document.getElementById('pwd-input').focus();
   }
 }
-
-function importCSV(el){if(window._importCSV)window._importCSV(el);}
-function resetDB(){if(window._resetDB)window._resetDB();}
-window._exportCSV = function exportCSV() {if(window._exportCSV)window._exportCSV();}
 function togglePwd(){
   var i=document.getElementById('pwd-input');
   i.type=(i.type==='password')?'text':'password';
@@ -676,20 +541,6 @@ onSnapshot(collection(db, 'archive'), (snapshot) => {
   archive = snapshot.docs.map(d => d.data());
   document.getElementById('s4').textContent = archive.length;
 });
-
-// Delete all documents in a collection
-async function deleteCollection(collName) {
-  const snap = await getDocs(collection(db, collName));
-  for (const d of snap.docs) {
-    await deleteDoc(doc(db, collName, d.id));
-  }
-}
-
-// Expose deleteAll globally
-window._fbDeleteAll = async function() {
-  await deleteCollection('properties');
-  await deleteCollection('archive');
-};
 
 // Seed initial data if empty
 setTimeout(async () => {
