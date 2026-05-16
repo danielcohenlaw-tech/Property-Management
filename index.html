@@ -442,5 +442,75 @@ function exportCSV(){
 
 renderActive();updateStats();renderAlerts();
 </script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+import { getFirestore, collection, onSnapshot, doc, setDoc, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCbvUouVgPxaT1yyBSfDUiVC8nGFT5mWiw",
+  authDomain: "property-management-6ad27.firebaseapp.com",
+  projectId: "property-management-6ad27",
+  storageBucket: "property-management-6ad27.firebasestorage.app",
+  messagingSenderId: "42421794814",
+  appId: "1:42421794814:web:9211c525fe7ec84b6af2af",
+  measurementId: "G-RZTFC06ZCL"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Override saveAll to use Firestore
+async function saveToFirestore(item, collectionName) {
+  const id = item.unit + '_' + (item.tenant||'empty') + '_' + (item.start||'nostart');
+  const safeId = id.replace(/[^a-zA-Z0-9_-]/g, '_').substring(0, 100);
+  await setDoc(doc(db, collectionName, safeId), item);
+}
+
+async function deleteFromFirestore(item, collectionName) {
+  const id = item.unit + '_' + (item.tenant||'empty') + '_' + (item.start||'nostart');
+  const safeId = id.replace(/[^a-zA-Z0-9_-]/g, '_').substring(0, 100);
+  await deleteDoc(doc(db, collectionName, safeId));
+}
+
+async function syncAllToFirestore() {
+  // Save all active props
+  for (const p of props) {
+    await saveToFirestore(p, 'properties');
+  }
+  // Save all archive
+  for (const p of archive) {
+    await saveToFirestore(p, 'archive');
+  }
+}
+
+// Override saveAll
+window.saveAll = async function() {
+  await syncAllToFirestore();
+};
+
+// Listen to Firestore in real time
+onSnapshot(collection(db, 'properties'), (snapshot) => {
+  props = snapshot.docs.map(d => d.data());
+  renderActive();
+  updateStats();
+  renderAlerts();
+});
+
+onSnapshot(collection(db, 'archive'), (snapshot) => {
+  archive = snapshot.docs.map(d => d.data());
+  document.getElementById('s4').textContent = archive.length;
+});
+
+// Check if Firestore is empty, if so seed with initial data
+setTimeout(async () => {
+  const snap = await getDocs(collection(db, 'properties'));
+  if (snap.empty && props.length > 0) {
+    showToast('מאתחל נתונים לענן...');
+    await syncAllToFirestore();
+  }
+}, 2000);
+
+</script>
 </body>
 </html>
