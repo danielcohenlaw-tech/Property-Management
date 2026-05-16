@@ -127,6 +127,10 @@ function checkPwd(){
     document.getElementById('pwd-input').focus();
   }
 }
+
+function importCSV(el){if(window._importCSV)window._importCSV(el);}
+function resetDB(){if(window._resetDB)window._resetDB();}
+window._exportCSV = function exportCSV() {if(window._exportCSV)window._exportCSV();}
 function togglePwd(){
   var i=document.getElementById('pwd-input');
   i.type=(i.type==='password')?'text':'password';
@@ -481,7 +485,7 @@ function deleteProp(i,isArc){if(isArc)archive.splice(i,1);else props.splice(i,1)
 
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
 
-function exportCSV(){
+window._exportCSV = function exportCSV() {
   var all=props.concat(archive);if(!all.length){showToast('אין נתונים');return;}
   var h=['מספר דירה','בעלות','חדרים','קומה','דייר','שכד','תחילה','סיום','ארנונה','ועד','ערבויות','הערות','ארכיון'];
   var rows=all.map(function(p){return[p.unit,p.own,p.rooms,p.floor,p.tenant,p.rent,p.start,p.end,p.arnona,p.vaad,p.guarantee,p.notes,p.archived?'כן':'לא'].map(function(v){return '"'+String(v||'').replace(/"/g,'""')+'"';}).join(',');});
@@ -490,7 +494,7 @@ function exportCSV(){
 }
 
 // IMPORT FROM CSV
-function importCSV(input) {
+window._importCSV = function importCSV(input) {
   var file = input.files[0];
   if (!file) return;
   if (!confirm('ייבוא זה ימחק את כל הנתונים הקיימים ויחליף אותם. להמשיך?')) { input.value=''; return; }
@@ -573,7 +577,7 @@ function parseCSVLine(line) {
 }
 
 // RESET DB
-async function resetDB() {
+window._resetDB = async function resetDB() {
   if (!confirm('למחוק את כל הנתונים מהמסד? פעולה זו אינה הפיכה!')) return;
   showToast('מוחק...');
   await window._fbDeleteAll();
@@ -598,6 +602,10 @@ function checkPwd(){
     document.getElementById('pwd-input').focus();
   }
 }
+
+function importCSV(el){if(window._importCSV)window._importCSV(el);}
+function resetDB(){if(window._resetDB)window._resetDB();}
+window._exportCSV = function exportCSV() {if(window._exportCSV)window._exportCSV();}
 function togglePwd(){
   var i=document.getElementById('pwd-input');
   i.type=(i.type==='password')?'text':'password';
